@@ -1,0 +1,33 @@
+version: 1.0.{build}
+install:
+- ps: >-
+    $gitData = ConvertFrom-StringData (git log -1 --format=format:"commitId=%H%nmessage=%s%ncommitted=%aD" | out-string)
+
+    if ($gitData['message'] -eq "") { $gitData['message'] = "No commit message available for $($gitData['commitid'])" }
+
+    # View the data with Write-Output @gitData
+
+    Update-AppveyorBuild @gitData
+cache: build64\install
+build_script:
+- cmd: >-
+    C:\msys64\usr\bin\pacman -S base-devel cmake gcc yasm git mercurial subversion gyp tar gmp-devel mpc-devel mpfr-devel python zlib-devel unzip zip --noconfirm --needed
+
+    C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-deps.sh"
+
+    C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-gcc.sh"
+
+    7z a mpv.7z .\build64\mpv-x86_64*\*
+
+    appveyor PushArtifact mpv.7z
+
+    7z a mpv-dev.7z .\build64\mpv-dev-x86_64*\*
+
+    appveyor PushArtifact mpv-dev.7z
+
+    7z a log.7z *.log -r
+
+    7z a log.7z *.cmake -r
+
+    appveyor PushArtifact log.7z
+test: off
