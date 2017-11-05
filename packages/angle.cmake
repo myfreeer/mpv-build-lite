@@ -5,7 +5,7 @@ else()
 endif()
 
 ExternalProject_Add(angle
-    GIT_REPOSITORY https://chromium.googlesource.com/angle/angle
+    GIT_REPOSITORY https://github.com/google/angle
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
     PATCH_COMMAND ${EXEC} git am ${CMAKE_CURRENT_SOURCE_DIR}/angle-*.patch

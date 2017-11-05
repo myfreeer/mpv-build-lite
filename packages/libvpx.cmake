@@ -5,7 +5,7 @@ else()
 endif()
 
 ExternalProject_Add(libvpx
-    GIT_REPOSITORY https://chromium.googlesource.com/webm/libvpx.git
+    GIT_REPOSITORY https://github.com/webmproject/libvpx
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
     CONFIGURE_COMMAND ${EXEC} CROSS=${TARGET_ARCH}- <SOURCE_DIR>/configure

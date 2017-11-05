@@ -1,6 +1,5 @@
 ExternalProject_Add(mpv
     DEPENDS
-        angle
         ffmpeg
         fribidi
         lcms2
@@ -16,11 +15,9 @@ ExternalProject_Add(mpv
         uchardet
         openal-soft
         mujs
-        vulkan
-        shaderc
-        crossc
     GIT_REPOSITORY git://github.com/mpv-player/mpv.git
     UPDATE_COMMAND ""
+    PATCH_COMMAND ${EXEC} git revert -n a86b0ffa6b9a3c0717a337d2e5544365b6cda2ad COMMAND ${EXEC} git apply ${CMAKE_CURRENT_SOURCE_DIR}/mpv-*.diff
     CONFIGURE_COMMAND ${EXEC}
         PKG_CONFIG=pkg-config
         TARGET=${TARGET_ARCH}
@@ -42,7 +39,9 @@ ExternalProject_Add(mpv
         --enable-rubberband
         --enable-lcms2
         --enable-openal
-        --enable-egl-angle-lib
+        --disable-egl-angle-lib
+        --disable-vulkan
+        --disable-shaderc
         --prefix=${MINGW_INSTALL_PREFIX}
     BUILD_COMMAND ${EXEC} <SOURCE_DIR>/waf
     INSTALL_COMMAND ""
