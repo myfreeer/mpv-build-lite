@@ -1,13 +1,4 @@
 version: 1.0.{build}
-install:
-- ps: >-
-    $gitData = ConvertFrom-StringData (git log -1 --format=format:"commitId=%H%nmessage=%s%ncommitted=%aD" | out-string)
-
-    if ($gitData['message'] -eq "") { $gitData['message'] = "No commit message available for $($gitData['commitid'])" }
-
-    # View the data with Write-Output @gitData
-
-    Update-AppveyorBuild @gitData
 cache: build64\install
 build_script:
 - cmd: >-
@@ -15,7 +6,7 @@ build_script:
 
     C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-deps.sh"
 
-    C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-gcc.sh"
+    C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-mpv.sh"
 
     7z a mpv.7z .\build64\mpv-x86_64*\*
 
