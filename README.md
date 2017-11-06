@@ -1,5 +1,7 @@
 # CMake-based MinGW-w64 Cross Toolchain
 
+[![Build status](https://ci.appveyor.com/api/projects/status/36cotsp4p1klgvay?svg=true)](https://ci.appveyor.com/project/myfreeer/mpv-build-lite)
+
 This thing’s primary use is to build Windows binaries of mpv.
 
 Alternatively, you can download the builds from [here](https://sourceforge.net/projects/mpv-player-windows/files/).
