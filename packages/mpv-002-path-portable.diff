@@ -1,0 +1,16 @@
+diff --git a/osdep/path-win.c b/osdep/path-win.c
+index 8f289ff83a..feac2c5600 100644
+--- a/osdep/path-win.c
++++ b/osdep/path-win.c
+@@ -78,6 +78,11 @@ static void path_init(void)
+     char *path = mp_get_win_exe_subdir(tmp, "portable_config");
+     if (path && mp_path_exists(path))
+         portable_path = talloc_strdup(NULL, path);
++    else {
++        char *path2 = mp_get_win_exe_subdir(tmp, "mpv");
++            if (path2 && mp_path_exists(path2))
++                portable_path = talloc_strdup(NULL, path2);
++        }
+     talloc_free(tmp);
+ }
+ 
