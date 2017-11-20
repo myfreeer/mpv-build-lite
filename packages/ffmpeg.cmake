@@ -18,7 +18,7 @@ ExternalProject_Add(ffmpeg
         xvidcore
     #GIT_REPOSITORY git://github.com/FFmpeg/FFmpeg.git
     #GIT_REPOSITORY git://git.videolan.org/ffmpeg.git
-    GIT_REPOSITORY git://github.com/FFmpeg/FFmpeg.git
+    GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
     CONFIGURE_COMMAND ${EXEC} <SOURCE_DIR>/configure
