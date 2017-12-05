@@ -39,7 +39,6 @@ ExternalProject_Add(mpv
         --enable-rubberband
         --enable-lcms2
         --enable-openal
-        --enable-ffmpeg-upstream
         --disable-egl-angle-lib
         --disable-vulkan
         --disable-shaderc
