@@ -4,7 +4,6 @@ ExternalProject_Add(ffmpeg
         game-music-emu
         gmp
         lame
-        libressl
         libass
         libbluray
         libmodplug
@@ -17,10 +16,11 @@ ExternalProject_Add(ffmpeg
         vorbis
         x264
         xvidcore
+    #GIT_REPOSITORY git://github.com/FFmpeg/FFmpeg.git
+    #GIT_REPOSITORY git://git.videolan.org/ffmpeg.git
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
-    PATCH_COMMAND ${EXEC} git apply --index ${CMAKE_CURRENT_SOURCE_DIR}/ffmpeg-patches/ffmpeg-*.patch
     CONFIGURE_COMMAND ${EXEC} <SOURCE_DIR>/configure
     --cross-prefix=${TARGET_ARCH}-
     --prefix=${MINGW_INSTALL_PREFIX}
@@ -52,10 +52,11 @@ ExternalProject_Add(ffmpeg
     --enable-libx264
     --enable-libxvid
     --enable-libzimg
-    --enable-openssl
+    --enable-schannel
     --enable-cuda
     --enable-cuvid
     --disable-w32threads
+    "--extra-libs='-lsecurity -lschannel'" # ffmpeg’s build system is retarded
     "--extra-cflags=-DMODPLUG_STATIC"
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
