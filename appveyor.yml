@@ -6,7 +6,7 @@ build_script:
 
     C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-deps.sh"
 
-    C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-mpv.sh"
+    C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-gcc.sh"
 
     7z a mpv.7z .\build64\mpv-x86_64*\*
 
