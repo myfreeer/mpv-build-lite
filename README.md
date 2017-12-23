@@ -60,6 +60,7 @@ Alternatively, you can download the builds from [here](https://sourceforge.net/p
     - libressl
     - nettle
     - curl
+    - libxml2
 
 - Zip
     - expat (2.2.5)
