@@ -1,5 +1,8 @@
 #!/bin/sh
 
+mount  -fo binary,noacl,posix=0,auto "$(pwd -W)" '/build'
+cd /build
+
 mkdir -p ./build64
 if [ -d './build64/install' ]; then
   rm -rf ./build64/install
