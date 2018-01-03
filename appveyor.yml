@@ -18,7 +18,7 @@ build_script:
 
     appveyor PushArtifact mpv-dev.7z
 
-    7z a mpv-dev.7z .\build64\mpv-debug-x86_64*\*
+    7z a mpv-debug.7z .\build64\mpv-debug-x86_64*\*
 
     appveyor PushArtifact mpv-debug.7z
 
