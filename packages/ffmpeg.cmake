@@ -48,6 +48,9 @@ ExternalProject_Add(ffmpeg
     --enable-libxml2
     --enable-cuda
     --enable-cuvid
+    --enable-nvenc
+    --enable-amf
+    --enable-libmfx
     --disable-w32threads
     "--extra-libs='-lsecurity -lschannel'" # ffmpeg’s build system is retarded
     "--extra-cflags=-DMODPLUG_STATIC"
