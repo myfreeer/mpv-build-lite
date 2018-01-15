@@ -4,12 +4,7 @@ mount  -fo binary,noacl,posix=0,auto "$(pwd -W)" '/build'
 cd /build
 
 # msys2-only workaround for x264
-mkdir nasm
-cd nasm
-wget -nv http://repo.msys2.org/mingw/x86_64/mingw-w64-x86_64-nasm-2.13.01-1-any.pkg.tar.xz
-tar -Jxvf mingw-w64-x86_64-nasm-2.13.01-1-any.pkg.tar.xz
-cp ./mingw64/bin/* /bin
-cd ..
+pacman -Sy nasm --noconfirm --needed
 
 mkdir -p ./build64
 cd ./build64
