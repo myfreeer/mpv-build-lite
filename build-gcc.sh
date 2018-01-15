@@ -10,5 +10,5 @@ fi
 cd ./build64
 cmake -DTARGET_ARCH=x86_64-w64-mingw32 -G Ninja ..
 ninja gcc
-ninja libressl vulkan crossc shaderc
+ninja vulkan crossc shaderc gmp libmodplug speex vorbis xvidcore
 cd ..
