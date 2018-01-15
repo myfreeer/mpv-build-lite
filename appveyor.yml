@@ -1,7 +1,4 @@
 version: 1.0.{build}
-cache: build64\install
-environment:
-  APPVEYOR_CACHE_SKIP_SAVE: true
 build_script:
 - cmd: >-
     C:\msys64\usr\bin\pacman -S base-devel cmake gcc yasm git mercurial subversion gyp tar gmp-devel mpc-devel mpfr-devel python zlib-devel unzip zip --noconfirm --needed
