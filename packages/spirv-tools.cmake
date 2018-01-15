@@ -1,6 +1,7 @@
 ExternalProject_Add(spirv-tools
     GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Tools.git
     GIT_SHALLOW 1
+    GIT_TAG "v2017.2"
     UPDATE_COMMAND ""
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
