@@ -2,20 +2,15 @@ ExternalProject_Add(ffmpeg
     DEPENDS
         bzip2
         game-music-emu
-        gmp
         lame
         libass
         libbluray
-        libmodplug
         libpng
         libsoxr
         libvpx
         libzimg
         opus
-        speex
-        vorbis
         x264
-        xvidcore
         libxml2
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
     GIT_SHALLOW 1
