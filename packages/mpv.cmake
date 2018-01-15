@@ -15,7 +15,6 @@ ExternalProject_Add(mpv
         uchardet
         openal-soft
         mujs
-        vulkan
     GIT_REPOSITORY git://github.com/mpv-player/mpv.git
     UPDATE_COMMAND ""
     PATCH_COMMAND ${EXEC} git revert -n a86b0ffa6b9a3c0717a337d2e5544365b6cda2ad COMMAND ${EXEC} git apply ${CMAKE_CURRENT_SOURCE_DIR}/mpv-*.diff
@@ -41,7 +40,6 @@ ExternalProject_Add(mpv
         --enable-lcms2
         --enable-openal
         --disable-egl-angle-lib
-        --disable-shaderc
         --prefix=${MINGW_INSTALL_PREFIX}
     BUILD_COMMAND ${EXEC} <SOURCE_DIR>/waf
     INSTALL_COMMAND ""
