@@ -7,7 +7,6 @@ ExternalProject_Add(ffmpeg
         libbluray
         libpng
         libsoxr
-        libvpx
         libzimg
         opus
         x264
@@ -42,7 +41,6 @@ ExternalProject_Add(ffmpeg
     --enable-libsoxr
     --enable-libspeex
     --enable-libvorbis
-    --enable-libvpx
     --enable-libx264
     --enable-libxvid
     --enable-libzimg
