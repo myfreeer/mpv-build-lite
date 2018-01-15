@@ -40,8 +40,6 @@ ExternalProject_Add(mpv
         --enable-lcms2
         --enable-openal
         --disable-egl-angle-lib
-        --disable-vulkan
-        --disable-shaderc
         --prefix=${MINGW_INSTALL_PREFIX}
     BUILD_COMMAND ${EXEC} <SOURCE_DIR>/waf
     INSTALL_COMMAND ""
