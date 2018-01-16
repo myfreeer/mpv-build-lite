@@ -8,5 +8,12 @@ ExternalProject_Add(libmfx
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
 
+ExternalProject_Add_Step(libmfx copy-headers
+    DEPENDEES download
+    DEPENDERS configure
+    WORKING_DIRECTORY <SOURCE_DIR>
+    COMMAND cp -rf mfx ${MINGW_INSTALL_PREFIX}/include/mfx
+)
+
 force_rebuild_git(libmfx)
 extra_step(libmfx)
