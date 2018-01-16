@@ -128,6 +128,8 @@ list(APPEND ep
     libass
     libressl
     libxml2
+    amf
+    libmfx
     ffmpeg
     angle
     mujs
@@ -142,8 +144,6 @@ list(APPEND ep
     flac
     opus-tools
     vapoursynth
-    amf
-    libmfx
 )
 foreach(package IN LISTS ep)
     include(${CMAKE_CURRENT_SOURCE_DIR}/${package}.cmake)
