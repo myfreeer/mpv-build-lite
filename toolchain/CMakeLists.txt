@@ -25,6 +25,7 @@ find_program(PKGCONFIG NAMES pkg-config)
 
 ExternalProject_Add_Step(binutils basedirs
     DEPENDEES download
+    COMMAND rm -rf ${CMAKE_INSTALL_PREFIX}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_PREFIX}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_PREFIX}/bin
     COMMAND ${CMAKE_COMMAND} -E create_symlink ${PKGCONFIG} ${CMAKE_INSTALL_PREFIX}/bin/${TARGET_ARCH}-pkg-config
