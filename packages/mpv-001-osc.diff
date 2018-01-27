@@ -1,9 +1,9 @@
 diff --git a/player/lua/osc.lua b/player/lua/osc.lua
-index e4faf6c..1678dff 100644
+index d79891b8c0..9348e4188c 100644
 --- a/player/lua/osc.lua
 +++ b/player/lua/osc.lua
-@@ -996,13 +996,7 @@ layouts["box"] = function ()
- 
+@@ -1009,13 +1009,7 @@ layouts["box"] = function ()
+
      lo = add_layout("tog_fs")
      lo.geometry =
 -        {x = posX+pos_offsetX - 25, y = bigbtnrowY, an = 4, w = 25, h = 25}
@@ -15,21 +15,21 @@ index e4faf6c..1678dff 100644
 -         y = bigbtnrowY, an = 4, w = 25, h = 25}
 +        {x = posX+pos_offsetX, y = bigbtnrowY, an = 6, w = 25, h = 25}
      lo.style = osc_styles.smallButtonsR
- 
+
      --
-@@ -1163,7 +1157,7 @@ layouts["bottombar"] = function()
+@@ -1176,7 +1170,7 @@ layouts["bottombar"] = function()
      local buttonW = 27
      local tcW = (state.tc_ms) and 170 or 110
      local tsW = 90
 -    local minW = (buttonW + padX)*5 + (tcW + padX)*4 + (tsW + padX)*2
 +    local minW = (buttonW + padX)*3 + (tcW + padX)*4 + (tsW + padX)*2
- 
+
      if ((osc_param.display_aspect > 0) and (osc_param.playresx < minW)) then
          osc_param.playresy = minW / osc_param.display_aspect
-@@ -1257,21 +1251,10 @@ layouts["bottombar"] = function()
- 
+@@ -1270,21 +1264,10 @@ layouts["bottombar"] = function()
+
      local sb_l = geo.x + padX
- 
+
 -    -- Fullscreen button
 -    geo = { x = osc_geo.x + osc_geo.w - buttonW - padX, y = geo.y, an = 4,
 -            w = buttonW, h = geo.h }
@@ -42,7 +42,7 @@ index e4faf6c..1678dff 100644
 -    lo = add_layout("volume")
 -    lo.geometry = geo
 -    lo.style = osc_styles.smallButtonsBar
- 
+
      -- Track selection buttons
 -    geo = { x = geo.x - tsW - padX, y = geo.y, an = geo.an, w = tsW, h = geo.h }
 +    geo = { x = osc_geo.x + osc_geo.w - padX, y = geo.y, an = geo.an,
@@ -50,28 +50,28 @@ index e4faf6c..1678dff 100644
      lo = add_layout("cy_sub")
      lo.geometry = geo
      lo.style = osc_styles.smallButtonsBar
-@@ -1283,7 +1266,7 @@ layouts["bottombar"] = function()
- 
- 
+@@ -1296,7 +1279,7 @@ layouts["bottombar"] = function()
+
+
      -- Right timecode
 -    geo = { x = geo.x - padX - tcW - 10, y = geo.y, an = geo.an,
 +    geo = { x = geo.x - geo.w - padX - tcW - 10, y = geo.y, an = 4,
              w = tcW, h = geo.h }
      lo = add_layout("tc_right")
      lo.geometry = geo
-@@ -1328,7 +1311,7 @@ layouts["topbar"] = function()
+@@ -1341,7 +1324,7 @@ layouts["topbar"] = function()
      local buttonW = 27
      local tcW = (state.tc_ms) and 170 or 110
      local tsW = 90
 -    local minW = (buttonW + padX)*5 + (tcW + padX)*4 + (tsW + padX)*2
 +    local minW = (buttonW + padX)*3 + (tcW + padX)*4 + (tsW + padX)*2
- 
+
      if ((osc_param.display_aspect > 0) and (osc_param.playresx < minW)) then
          osc_param.playresy = minW / osc_param.display_aspect
-@@ -1391,21 +1374,10 @@ layouts["topbar"] = function()
- 
+@@ -1404,21 +1387,10 @@ layouts["topbar"] = function()
+
      local sb_l = geo.x + padX
- 
+
 -    -- Fullscreen button
 -    geo = { x = osc_geo.x + osc_geo.w - buttonW - padX, y = geo.y, an = 4,
 -            w = buttonW, h = geo.h }
@@ -84,7 +84,7 @@ index e4faf6c..1678dff 100644
 -    lo = add_layout("volume")
 -    lo.geometry = geo
 -    lo.style = osc_styles.smallButtonsBar
- 
+
      -- Track selection buttons
 -    geo = { x = geo.x - tsW - padX, y = geo.y, an = geo.an, w = tsW, h = geo.h }
 +    geo = { x = osc_geo.x + osc_geo.w - padX, y = geo.y, an = geo.an,
@@ -92,10 +92,10 @@ index e4faf6c..1678dff 100644
      lo = add_layout("cy_sub")
      lo.geometry = geo
      lo.style = osc_styles.smallButtonsBar
-@@ -1834,27 +1806,6 @@ function osc_init()
-         end
+@@ -1860,27 +1832,6 @@ function osc_init()
+             string.format("%3.0fs", dmx_cache))
      end
- 
+
 -    -- volume
 -    ne = new_element("volume", "button")
 -
@@ -117,6 +117,6 @@ index e4faf6c..1678dff 100644
 -        function () mp.commandv("osd-auto", "add", "volume", 5) end
 -    ne.eventresponder["wheel_down_press"] =
 -        function () mp.commandv("osd-auto", "add", "volume", -5) end
- 
- 
+
+
      -- load layout
