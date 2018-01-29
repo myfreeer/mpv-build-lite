@@ -9,11 +9,8 @@ build_script:
 
     7z a toolchain.7z .\build64\install\*
 
-    appveyor PushArtifact toolchain.7z
-
-    7z a log.7z *.log -r
-
-    7z a log.7z *.cmake -r
-
-    appveyor PushArtifact log.7z
+    7z a log.7z *.log *.cmake *.ninja -r
 test: off
+artifacts:
+- path: toolchain.7z
+- path: log.7z
