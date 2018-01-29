@@ -1,0 +1,11 @@
+diff --git a/version.sh b/version.sh
+index 2cfc384b5c..1838328c8a 100755
+--- a/version.sh
++++ b/version.sh
+@@ -64,3 +64,5 @@ $BUILDDATE
+ $MPVCOPYRIGHT
+ EOF
+ fi
++
++echo "$VERSION" > VERSION
+\ No newline at end of file

@@ -1,10 +1,16 @@
 # CMake-based MinGW-w64 Cross Toolchain
 
-[![Build status](https://ci.appveyor.com/api/projects/status/36cotsp4p1klgvay?svg=true)](https://ci.appveyor.com/project/myfreeer/mpv-build-lite)
-
 This thing’s primary use is to build Windows binaries of mpv.
 
-Alternatively, you can download the builds from [here](https://sourceforge.net/projects/mpv-player-windows/files/).
+## Build status
+
+[![Build status](https://ci.appveyor.com/api/projects/status/36cotsp4p1klgvay?svg=true)](https://ci.appveyor.com/project/myfreeer/mpv-build-lite)
+
+Artifacts built by appveyor:
+* 64-bit static mpv binary with pdf docs: [mpv.7z](https://ci.appveyor.com/api/projects/myfreeer/mpv-build-lite/artifacts/mpv.7z?branch=master)
+* 64-bit shared libmpv dll and headers: [mpv-dev.7z](https://ci.appveyor.com/api/projects/myfreeer/mpv-build-lite/artifacts/mpv-dev.7z?branch=master)
+* 64-bit debugging symbol for mpv: [mpv-debug.7z](https://ci.appveyor.com/api/projects/myfreeer/mpv-build-lite/artifacts/mpv-debug.7z?branch=master)
+* 64-bit pre-build toolchain: [toolchain.7z](https://ci.appveyor.com/api/projects/myfreeer/mpv-build-lite/artifacts/toolchain.7z?branch=toolchain)
 
 ## Prerequisites
 
@@ -111,13 +117,13 @@ Don't use `MSYS2 MinGW 32-bit` or `MSYS2 MinGW 64-bit` shortcuts, that's importa
 
 These packages need to be installed first before compiling mpv:
 
-    pacman -S base-devel cmake gcc yasm nasm git mercurial subversion gyp tar gmp-devel mpc-devel mpfr-devel python zlib-devel unzip zip p7zip
+    pacman -Sy base-devel cmake gcc yasm nasm git mercurial subversion gyp tar gmp-devel mpc-devel mpfr-devel python zlib-devel unzip zip p7zip --needed
 
 Don't install anything from the `mingw32` and `mingw64` repositories,
 it's better to completely disable them in `/etc/pacman.conf` just to be safe.
 
-Additionally, some packages, `re2c`, `ninja`, `ragel`, `libjpeg`, `rst2pdf` need to be [installed manually](https://gist.github.com/shinchiro/705b0afcc7b6c0accffba1bedb067abf).
-
+Additionally, some packages, `re2c`, `ninja`, `ragel`, `libjpeg`, `rst2pdf` need to be [installed manually](https://gist.github.com/shinchiro/705b0afcc7b6c0accffba1bedb067abf)
+or use `build-deps.sh` to automatically download, build, and install them.
 
 ## Building Software (First Time)
 
@@ -134,17 +140,16 @@ or for 32bit:
 
     cmake -DTARGET_ARCH=i686-w64-mingw32 -G Ninja ..
 
-First, you need to build toolchain. By default, it will be installed in `install` folder. This take ~20 minutes on my 4-core machine.
+First, you need to build toolchain. By default, it will be installed in `install` folder.
 
     ninja gcc
+    ninja vulkan crossc shaderc gmp libmodplug speex vorbis xvidcore lzo expat
 
 After it done, you're ready to build mpv and all its dependencies:
 
     ninja mpv
 
-This will take a while (about ~10 minutes on my machine).
-
-The final `build64` folder's size will be around ~3GB.
+For MSYS2, you can just use `build-mpv.sh` for a 64-bit build, ignoring steps above.
 
 ## Building Software (Second Time)
 
@@ -154,6 +159,7 @@ To build mpv for a second time, clean all packages' stamp files:
 
 After that, build mpv as usual:
 
+    ninja vulkan crossc shaderc gmp libmodplug speex vorbis xvidcore lzo expat
     ninja mpv
 
 This will also build all packages that `mpv` depends on.

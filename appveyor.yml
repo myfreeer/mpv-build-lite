@@ -9,19 +9,15 @@ build_script:
 
     7z a mpv.7z .\build64\mpv-x86_64*\*
 
-    appveyor PushArtifact mpv.7z
-
     7z a mpv-dev.7z .\build64\mpv-dev-x86_64*\*
-
-    appveyor PushArtifact mpv-dev.7z
 
     7z a mpv-debug.7z .\build64\mpv-debug-x86_64*\*
 
-    appveyor PushArtifact mpv-debug.7z
-
-    7z a log.7z *.log -r
-
-    7z a log.7z *.cmake -r
-
-    appveyor PushArtifact log.7z
+    7z a log.7z *.log *.cmake *.ninja -r
 test: off
+artifacts:
+- path: mpv.7z
+- path: mpv-dev.7z
+- path: mpv-debug.7z
+- path: log.7z
+- path: build64\packages\mpv-prefix\src\mpv\VERSION
