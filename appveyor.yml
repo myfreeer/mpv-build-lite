@@ -1,4 +1,4 @@
-version: 1.0.{build}
+version: 0.28.0-{build}
 build_script:
 - cmd: >-
     C:\msys64\usr\bin\pacman -S base-devel cmake gcc yasm git mercurial subversion gyp tar gmp-devel mpc-devel mpfr-devel python zlib-devel unzip zip --noconfirm --needed
@@ -14,10 +14,12 @@ build_script:
     7z a mpv-debug.7z .\build64\mpv-debug-x86_64*\*
 
     7z a log.7z *.log *.cmake *.ninja -r
+
+    copy /y .\build64\packages\mpv-prefix\src\mpv\VERSION VERSION
 test: off
 artifacts:
 - path: mpv.7z
 - path: mpv-dev.7z
 - path: mpv-debug.7z
 - path: log.7z
-- path: build64\packages\mpv-prefix\src\mpv\VERSION
+- path: VERSION
