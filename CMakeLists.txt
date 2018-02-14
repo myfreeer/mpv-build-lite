@@ -35,18 +35,18 @@ set(MINGW_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}/mingw)
 
 set(ENABLE_VCS_UPDATES true CACHE STRING "Enable automatic updates and forced rebuilds for packages built from git/svn sources")
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/toolchain.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/toolchain.cmake @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/scripts/toolchain.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/toolchain.cmake @ONLY)
 set(TOOLCHAIN_FILE ${CMAKE_CURRENT_BINARY_DIR}/toolchain.cmake)
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/exec.in ${CMAKE_CURRENT_BINARY_DIR}/exec @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/scripts/exec.in ${CMAKE_CURRENT_BINARY_DIR}/exec @ONLY)
 set(EXEC ${CMAKE_CURRENT_BINARY_DIR}/exec)
 set(MAKE ${EXEC} make -j${MAKEJOBS})
-set(DEBPATCH ${CMAKE_CURRENT_SOURCE_DIR}/debpatch)
+set(DEBPATCH ${CMAKE_CURRENT_SOURCE_DIR}/scripts/debpatch)
 
 string(TIMESTAMP BUILDDATE "%Y%m%d")
 
-if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/publish.in)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/publish.in ${CMAKE_CURRENT_BINARY_DIR}/publish)
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/scripts/publish.in)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/scripts/publish.in ${CMAKE_CURRENT_BINARY_DIR}/publish)
 endif()
 
 add_subdirectory(toolchain)
