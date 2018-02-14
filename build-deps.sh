@@ -16,15 +16,15 @@ cd ninja
 mv ninja.exe /usr/bin
 cd ..
 
-wget -nv http://www.colm.net/files/ragel/ragel-6.10.tar.gz
+wget -nv https://www.colm.net/files/ragel/ragel-6.10.tar.gz
 tar -zxvf ragel-6.10.tar.gz
 cd ragel-6.10
-./configure --prefix=/usr CXXFLAGS="$CXXFLAGS -std=gnu++98" 
+./configure --enable-silent-rules --disable-dependency-tracking --prefix=/usr CXXFLAGS="$CXXFLAGS -std=gnu++98" 
 make -j$CPUCOUNT && make install -j$CPUCOUNT
 cd ..
 
-wget -nv http://downloads.sourceforge.net/project/libjpeg/libjpeg/6b/jpegsr6.zip
-unzip jpegsr6
+wget -nv http://www.ijg.org/files/jpegsr6b.zip
+unzip jpegsr6b.zip
 cd jpeg-6b
 ./configure --prefix=/usr
 make -j$CPUCOUNT && make install-lib -j$CPUCOUNT
