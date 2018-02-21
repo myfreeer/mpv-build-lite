@@ -1,7 +1,7 @@
-version: 0.28.0-{build}
+version: 0.28.0-build{build}
 build_script:
 - cmd: >-
-    C:\msys64\usr\bin\pacman -S base-devel cmake gcc yasm git mercurial subversion gyp tar gmp-devel mpc-devel mpfr-devel python zlib-devel unzip zip --noconfirm --needed
+    C:\msys64\usr\bin\pacman -S base-devel cmake gcc yasm git mercurial subversion gyp tar gmp-devel mpc-devel mpfr-devel python zlib-devel unzip zip --noconfirm --needed --noprogressbar --ask 20
 
     C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-deps.sh"
 
