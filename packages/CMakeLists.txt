@@ -130,6 +130,7 @@ list(APPEND ep
     libxml2
     amf
     libmfx
+    nvcodec-headers
     ffmpeg
     angle
     mujs
