@@ -3,12 +3,7 @@ git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 CPUCOUNT=$(grep -c ^processor /proc/cpuinfo)
 
-git clone --depth 1 https://github.com/skvadrik/re2c.git --config http.sslVerify=false
-cd re2c/re2c
-./autogen.sh
-./configure --prefix=/usr
-make -j$CPUCOUNT && make install -j$CPUCOUNT
-cd ../..
+pacman -Sy re2c --noconfirm --needed --noprogressbar --ask 20
 
 git clone --depth 1 https://github.com/ninja-build/ninja.git --config http.sslVerify=false
 cd ninja
