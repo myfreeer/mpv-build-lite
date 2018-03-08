@@ -68,6 +68,9 @@ Artifacts built by appveyor:
     - libxml2
     - amf
     - libmfx
+    - libmodplug
+    - vapoursynth
+    - nvcodec-headers
 
 - Zip
     - expat (2.2.5)
@@ -78,10 +81,8 @@ Artifacts built by appveyor:
     - speex (1.2.0)
     - ogg (1.3.3)
     - lzo (2.10)
-    - libmodplug (0.8.9.0)
     - libiconv (1.15)
     - gmp (6.1.2)
-    - vapoursynth (R40)
 
 
 ## Setup Build Environment

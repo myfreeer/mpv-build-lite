@@ -3,12 +3,7 @@ git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 CPUCOUNT=$(grep -c ^processor /proc/cpuinfo)
 
-git clone --depth 1 https://github.com/skvadrik/re2c.git --config http.sslVerify=false
-cd re2c/re2c
-./autogen.sh
-./configure --prefix=/usr
-make -j$CPUCOUNT && make install -j$CPUCOUNT
-cd ../..
+pacman -Sy re2c --noconfirm --needed --noprogressbar --ask 20
 
 git clone --depth 1 https://github.com/ninja-build/ninja.git --config http.sslVerify=false
 cd ninja
@@ -16,15 +11,15 @@ cd ninja
 mv ninja.exe /usr/bin
 cd ..
 
-wget -nv http://www.colm.net/files/ragel/ragel-6.10.tar.gz
-tar -zxvf ragel-6.10.tar.gz
+wget -nv https://www.colm.net/files/ragel/ragel-6.10.tar.gz
+tar -zxf ragel-6.10.tar.gz
 cd ragel-6.10
-./configure --prefix=/usr CXXFLAGS="$CXXFLAGS -std=gnu++98" 
+./configure --enable-silent-rules --disable-dependency-tracking --prefix=/usr CXXFLAGS="$CXXFLAGS -std=gnu++98" 
 make -j$CPUCOUNT && make install -j$CPUCOUNT
 cd ..
 
-wget -nv http://downloads.sourceforge.net/project/libjpeg/libjpeg/6b/jpegsr6.zip
-unzip jpegsr6
+wget -nv http://www.ijg.org/files/jpegsr6b.zip
+unzip -q jpegsr6b.zip
 cd jpeg-6b
 ./configure --prefix=/usr
 make -j$CPUCOUNT && make install-lib -j$CPUCOUNT

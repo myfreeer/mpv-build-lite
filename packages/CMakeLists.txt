@@ -130,6 +130,7 @@ list(APPEND ep
     libxml2
     amf
     libmfx
+    nvcodec-headers
     ffmpeg
     angle
     mujs
@@ -140,10 +141,12 @@ list(APPEND ep
     shaderc
     crossc
     curl
+    vapoursynth
     mpv
     flac
+    opusfile
+    libopusenc
     opus-tools
-    vapoursynth
 )
 foreach(package IN LISTS ep)
     include(${CMAKE_CURRENT_SOURCE_DIR}/${package}.cmake)

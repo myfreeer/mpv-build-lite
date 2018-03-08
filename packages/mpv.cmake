@@ -15,6 +15,7 @@ ExternalProject_Add(mpv
         uchardet
         openal-soft
         mujs
+        vulkan
     GIT_REPOSITORY git://github.com/mpv-player/mpv.git
     UPDATE_COMMAND ""
     PATCH_COMMAND ${EXEC} git revert -n a86b0ffa6b9a3c0717a337d2e5544365b6cda2ad COMMAND ${EXEC} git apply ${CMAKE_CURRENT_SOURCE_DIR}/mpv-*.diff
@@ -80,6 +81,8 @@ ExternalProject_Add_Step(mpv copy-binary
     COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/libmpv/opengl_cb.h ${CMAKE_CURRENT_BINARY_DIR}/mpv-dev/include/opengl_cb.h
     COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/libmpv/stream_cb.h ${CMAKE_CURRENT_BINARY_DIR}/mpv-dev/include/stream_cb.h
     COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/libmpv/qthelper.hpp ${CMAKE_CURRENT_BINARY_DIR}/mpv-dev/include/qthelper.hpp
+    COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/libmpv/render.h ${CMAKE_CURRENT_BINARY_DIR}/mpv-dev/include/render.h
+    COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/libmpv/render_gl.h ${CMAKE_CURRENT_BINARY_DIR}/mpv-dev/include/render_gl.h
 
     COMMENT "Copying mpv binaries and manual"
 )

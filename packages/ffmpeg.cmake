@@ -9,10 +9,10 @@ ExternalProject_Add(ffmpeg
         libsoxr
         libzimg
         opus
-        x264
         libxml2
         amf
         libmfx
+        nvcodec-headers
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
