@@ -9,7 +9,6 @@ ExternalProject_Add(ffmpeg
         libsoxr
         libzimg
         opus
-        x264
         libxml2
         amf
         libmfx
