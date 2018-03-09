@@ -23,3 +23,5 @@ artifacts:
 - path: mpv-debug.7z
 - path: log.7z
 - path: VERSION
+on_failure:
+- appveyor PushArtifact log.7z
