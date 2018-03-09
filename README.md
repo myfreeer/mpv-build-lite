@@ -144,7 +144,7 @@ or for 32bit:
 First, you need to build toolchain. By default, it will be installed in `install` folder.
 
     ninja gcc
-    ninja vulkan crossc shaderc gmp libmodplug speex vorbis xvidcore lzo expat
+    ninja x264 crossc shaderc gmp libmodplug speex vorbis xvidcore lzo expat
 
 After it done, you're ready to build mpv and all its dependencies:
 

@@ -14,3 +14,5 @@ test: off
 artifacts:
 - path: toolchain.7z
 - path: log.7z
+on_failure:
+- appveyor PushArtifact log.7z
