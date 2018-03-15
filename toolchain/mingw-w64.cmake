@@ -10,3 +10,4 @@ ExternalProject_Add(mingw-w64
 )
 
 force_rebuild_git(mingw-w64)
+extra_step(mingw-w64)

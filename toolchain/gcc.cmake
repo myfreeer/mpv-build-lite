@@ -9,3 +9,4 @@ ExternalProject_Add(gcc
     INSTALL_COMMAND ${MAKE} install-strip
     LOG_BUILD 1 LOG_INSTALL 1
 )
+extra_step(gcc)

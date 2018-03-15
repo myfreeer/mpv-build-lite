@@ -10,3 +10,4 @@ ExternalProject_Add(widl
     INSTALL_COMMAND ${MAKE} install-strip
     LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
+extra_step(widl)

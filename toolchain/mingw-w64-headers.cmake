@@ -13,3 +13,4 @@ ExternalProject_Add(mingw-w64-headers
     INSTALL_COMMAND make install-strip
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
+extra_step(mingw-w64-headers)

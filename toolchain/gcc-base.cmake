@@ -35,3 +35,4 @@ ExternalProject_Add(gcc-base
     INSTALL_COMMAND make install-strip-gcc
     LOG_DOWNLOAD 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
+extra_step(gcc-base)
