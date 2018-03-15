@@ -13,5 +13,12 @@ ExternalProject_Add(mingw-w64-crt
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
 
-autoreconf(mingw-w64-crt)
+ExternalProject_Add_Step(mingw-w64-crt autoreconf
+    DEPENDEES download update patch
+    DEPENDERS configure
+    COMMAND ${EXEC} autoreconf -fi
+    WORKING_DIRECTORY <SOURCE_DIR>/mingw-w64/mingw-w64-crt
+    LOG 1
+)
+
 extra_step(mingw-w64-crt)
