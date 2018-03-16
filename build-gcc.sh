@@ -18,5 +18,5 @@ ninja x264 gmp libmodplug speex vorbis xvidcore lzo expat
 # download pre-built shaderc
 wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/shaderc_and_crossc.7z"
 7z x -y shaderc_and_crossc.7z
-cp -f ./libshaderc_combined.a ./install/mingw/lib/libshaderc_combined.a
+sed -i 's/mpv-build-lite/build/g' install/mingw/lib/pkgconfig/crossc.pc
 cd ..
