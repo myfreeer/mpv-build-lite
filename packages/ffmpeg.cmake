@@ -8,6 +8,7 @@ ExternalProject_Add(ffmpeg
         libpng
         libsoxr
         libzimg
+        libmysofa
         opus
         libxml2
         amf
@@ -51,6 +52,7 @@ ExternalProject_Add(ffmpeg
     --enable-cuda
     --enable-cuvid
     --enable-nvenc
+    --enable-libmysofa
     --enable-amf
     --enable-libmfx
     --disable-w32threads
