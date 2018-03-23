@@ -54,6 +54,9 @@ ExternalProject_Add(ffmpeg
     --enable-amf
     --enable-libmfx
     --disable-w32threads
+    --disable-debug
+    --disable-doc
+    --disable-programs
     "--extra-libs='-lsecurity -lschannel'" # ffmpeg’s build system is retarded
     "--extra-cflags=-DMODPLUG_STATIC"
     BUILD_COMMAND ${MAKE}
