@@ -13,7 +13,7 @@ fi
 cd ./build64
 cmake -DTARGET_ARCH=x86_64-w64-mingw32 -G Ninja ..
 ninja gcc
-ninja x264 gmp libmodplug speex vorbis xvidcore lzo expat
+ninja x264 gmp libmodplug speex vorbis xvidcore lzo expat libiconv
 
 # download pre-built shaderc
 wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/shaderc_and_crossc.7z"

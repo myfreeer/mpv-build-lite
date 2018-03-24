@@ -7,7 +7,7 @@ ExternalProject_Add(mpv
         libass
         libdvdnav
         libdvdread
-        libiconv
+#        libiconv
         libjpeg
         libpng
         luajit
