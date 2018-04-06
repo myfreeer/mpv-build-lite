@@ -72,6 +72,7 @@ Artifacts built by appveyor:
     - libmodplug
     - vapoursynth
     - nvcodec-headers
+    - aom
 
 - Zip
     - expat (2.2.5)
