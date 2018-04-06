@@ -14,6 +14,7 @@ ExternalProject_Add(ffmpeg
         amf
         libmfx
         nvcodec-headers
+        aom
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
@@ -45,6 +46,7 @@ ExternalProject_Add(ffmpeg
     --enable-libspeex
     --enable-libvorbis
     --enable-libx264
+    --enable-libaom
     --enable-libxvid
     --enable-libzimg
     --enable-schannel
