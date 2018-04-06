@@ -155,9 +155,9 @@ For MSYS2, you can just use `build-mpv.sh` for a 64-bit build, ignoring steps ab
 
 ## Building Software (Second Time)
 
-To build mpv for a second time, clean all packages' stamp files:
+To build mpv for a second time:
 
-    ninja clean
+    ninja update
 
 After that, build mpv as usual:
 
