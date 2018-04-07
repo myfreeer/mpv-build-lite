@@ -14,7 +14,7 @@ ExternalProject_Add(ffmpeg
         amf
         libmfx
         nvcodec-headers
-        aom
+#        aom
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
@@ -46,7 +46,8 @@ ExternalProject_Add(ffmpeg
     --enable-libspeex
     --enable-libvorbis
     --enable-libx264
-    --enable-libaom
+#    --enable-libaom
+#    --disable-encoder=libaom_av1
     --enable-libxvid
     --enable-libzimg
     --enable-schannel
@@ -61,7 +62,6 @@ ExternalProject_Add(ffmpeg
     --disable-debug
     --disable-doc
     --disable-programs
-    --disable-encoder=libaom-av1
     "--extra-libs='-lsecurity -lschannel'" # ffmpeg’s build system is retarded
     "--extra-cflags=-DMODPLUG_STATIC"
     BUILD_COMMAND ${MAKE}
