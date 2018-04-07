@@ -61,6 +61,7 @@ ExternalProject_Add(ffmpeg
     --disable-debug
     --disable-doc
     --disable-programs
+    --disable-encoder=libaom-av1
     "--extra-libs='-lsecurity -lschannel'" # ffmpeg’s build system is retarded
     "--extra-cflags=-DMODPLUG_STATIC"
     BUILD_COMMAND ${MAKE}
