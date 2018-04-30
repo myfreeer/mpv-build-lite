@@ -8,11 +8,13 @@ ExternalProject_Add(ffmpeg
         libpng
         libsoxr
         libzimg
+        libmysofa
         opus
         libxml2
         amf
         libmfx
         nvcodec-headers
+#        aom
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
@@ -44,6 +46,8 @@ ExternalProject_Add(ffmpeg
     --enable-libspeex
     --enable-libvorbis
     --enable-libx264
+#    --enable-libaom
+#    --disable-encoder=libaom_av1
     --enable-libxvid
     --enable-libzimg
     --enable-schannel
@@ -51,9 +55,13 @@ ExternalProject_Add(ffmpeg
     --enable-cuda
     --enable-cuvid
     --enable-nvenc
+    --enable-libmysofa
     --enable-amf
     --enable-libmfx
     --disable-w32threads
+    --disable-debug
+    --disable-doc
+    --disable-programs
     "--extra-libs='-lsecurity -lschannel'" # ffmpeg’s build system is retarded
     "--extra-cflags=-DMODPLUG_STATIC"
     BUILD_COMMAND ${MAKE}

@@ -3,7 +3,7 @@ ExternalProject_Add(libass
         harfbuzz
         freetype2
         fribidi
-        libiconv
+#        libiconv
     GIT_REPOSITORY https://github.com/libass/libass.git
     GIT_SHALLOW 1
     UPDATE_COMMAND ""

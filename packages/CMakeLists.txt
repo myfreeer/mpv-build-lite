@@ -41,6 +41,8 @@ list(APPEND ep
     amf
     libmfx
     nvcodec-headers
+    libmysofa
+    aom
     ffmpeg
     angle
     mujs

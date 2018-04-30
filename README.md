@@ -48,6 +48,7 @@ Artifacts built by appveyor:
     - libdvdcss
     - libbluray
     - libass
+    - libmysofa
     - lcms2
     - lame
     - harfbuzz
@@ -71,13 +72,14 @@ Artifacts built by appveyor:
     - libmodplug
     - vapoursynth
     - nvcodec-headers
+    - aom
 
 - Zip
     - expat (2.2.5)
     - bzip (1.0.6)
     - zlib (1.2.11)
     - xvidcore (1.3.5)
-    - vorbis (1.3.5)
+    - vorbis (1.3.6)
     - speex (1.2.0)
     - ogg (1.3.3)
     - lzo (2.10)
@@ -154,9 +156,9 @@ For MSYS2, you can just use `build-mpv.sh` for a 64-bit build, ignoring steps ab
 
 ## Building Software (Second Time)
 
-To build mpv for a second time, clean all packages' stamp files:
+To build mpv for a second time:
 
-    ninja clean
+    ninja update
 
 After that, build mpv as usual:
 
