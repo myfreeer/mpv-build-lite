@@ -11,6 +11,8 @@ ExternalProject_Add(aom
         -DENABLE_DOCS=OFF
         -DENABLE_TOOLS=OFF
         -DENABLE_NASM=ON
+        -DENABLE_TESTS=OFF
+        -DENABLE_TESTDATA=OFF
         -DCONFIG_UNIT_TESTS=0
         -DCONFIG_AV1_ENCODER=0
         -DCMAKE_BUILD_TYPE=Release
