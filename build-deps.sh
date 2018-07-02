@@ -1,6 +1,13 @@
 #!/bin/bash
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
+# workaround git user name and email not set
+GIT_USER_NAME="$(git config --global user.name)"
+GIT_USER_EMAIL="$(git config --global user.email)"
+if [[ "${GIT_USER_NAME}" = "" ]]; then
+    git config --global user.name "Name"
+fi
+if [[ "${GIT_USER_EMAIL}" = "" ]]; then
+    git config --global user.email "you@example.com"
+fi
 CPUCOUNT=$(grep -c ^processor /proc/cpuinfo)
 
 pacman -Sy re2c --noconfirm --needed --noprogressbar --ask 20
@@ -25,6 +32,5 @@ cd jpeg-6b
 make -j$CPUCOUNT && make install-lib -j$CPUCOUNT
 cd ..
 
-wget -nv --no-check-certificate https://bootstrap.pypa.io/get-pip.py
-python2 get-pip.py
-pip install rst2pdf
+pip2 install rst2pdf
+pip3 install meson
