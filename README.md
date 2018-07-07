@@ -92,7 +92,7 @@ Artifacts built by appveyor:
 
 These packages need to be installed first before compiling mpv:
 
-    pacman -S git gyp mercurial ninja cmake meson ragel yasm nasm asciidoc enca gperf unzip p7zip gcc-multilib python2-pip python-docutils python2-rst2pdf python2-lxml python2-pillow
+    pacman -S git gyp mercurial subversion ninja cmake meson ragel yasm nasm asciidoc enca gperf unzip p7zip gcc-multilib python2-pip python-docutils python2-rst2pdf python2-lxml python2-pillow curl
 
 ### Ubuntu Linux / WSL (Windows 10)
 
