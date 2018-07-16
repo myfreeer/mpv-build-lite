@@ -1,9 +1,8 @@
 find_program(PKGCONFIG NAMES pkg-config)
 
 ExternalProject_Add(binutils
-    URL ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/binutils/releases/binutils-2.30.tar.xz
-    URL_HASH SHA256=6e46b8aeae2f727a36f0bd9505e405768a72218f1796f0d09757d45209871ae6
-    PATCH_COMMAND patch -p1 < ${CMAKE_CURRENT_SOURCE_DIR}/binutils-0001-remove-provide-qualifiers.patch
+    URL ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/binutils/releases/binutils-2.31.tar.xz
+    URL_HASH SHA512=3448a71c42d790569c1159c1042aa520b2d8ac8af7506fb1f2a4199dfb13b39f1c2271a5cb3a643d10c7d8a388a73f190e90503d4793a016da7893473aa1c635
     CONFIGURE_COMMAND <SOURCE_DIR>/configure
         --target=${TARGET_ARCH}
         --prefix=${CMAKE_INSTALL_PREFIX}
