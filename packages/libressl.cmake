@@ -1,6 +1,6 @@
 ExternalProject_Add(libressl
-    URL "http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-2.6.4.tar.gz"
-    URL_HASH SHA256=638a20c2f9e99ee283a841cd787ab4d846d1880e180c4e96904fc327d419d11f
+    URL "https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-2.7.4.tar.gz"
+    URL_HASH SHA256=1e3a9fada06c1c060011470ad0ff960de28f9a0515277d7336f7e09362517da6
     PATCH_COMMAND ${EXEC} sed -i '/SUBDIRS = crypto ssl tls include apps tests man/ c\\SUBDIRS = crypto ssl tls include\\' Makefile.am Makefile.in
     CONFIGURE_COMMAND ${EXEC} <SOURCE_DIR>/configure
         --host=${TARGET_ARCH}
