@@ -1,8 +1,8 @@
 find_program(PKGCONFIG NAMES pkg-config)
 
 ExternalProject_Add(binutils
-    URL ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/binutils/releases/binutils-2.31.tar.xz
-    URL_HASH SHA512=3448a71c42d790569c1159c1042aa520b2d8ac8af7506fb1f2a4199dfb13b39f1c2271a5cb3a643d10c7d8a388a73f190e90503d4793a016da7893473aa1c635
+    URL ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/binutils/releases/binutils-2.31.1.tar.xz
+    URL_HASH SHA512=0fca326feb1d5f5fe505a827b20237fe3ec9c13eaf7ec7e35847fd71184f605ba1cefe1314b1b8f8a29c0aa9d88162849ee1c1a3e70c2f7407d88339b17edb30
     CONFIGURE_COMMAND <SOURCE_DIR>/configure
         --target=${TARGET_ARCH}
         --prefix=${CMAKE_INSTALL_PREFIX}
@@ -10,6 +10,11 @@ ExternalProject_Add(binutils
         --disable-multilib
         --disable-nls
         --disable-shared
+        --disable-win32-registry
+        --without-included-gettext
+        --enable-lto
+        --enable-plugins
+        --enable-threads
     BUILD_COMMAND make -j${MAKEJOBS}
     INSTALL_COMMAND make install-strip
     LOG_DOWNLOAD 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
