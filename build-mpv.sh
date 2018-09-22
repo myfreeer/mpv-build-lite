@@ -10,7 +10,7 @@ mkdir -p ./build64
 cd ./build64
 echo 'int main(){return 0;}' > gcctest.c
 install/bin/x86_64-w64-mingw32-gcc.exe gcctest.c || {
-wget -nv -Otoolchain.7z https://ci.appveyor.com/api/projects/myfreeer/mpv-build-lite/artifacts/toolchain.7z?branch=toolchain
+wget -c -nv -Otoolchain.7z https://ci.appveyor.com/api/projects/myfreeer/mpv-build-lite/artifacts/toolchain.7z?branch=toolchain
 mkdir -p install
 cd install
 7z x -y ../toolchain.7z

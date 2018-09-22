@@ -120,7 +120,7 @@ Don't use `MSYS2 MinGW 32-bit` or `MSYS2 MinGW 64-bit` shortcuts, that's importa
 
 These packages need to be installed first before compiling mpv:
 
-    pacman -Sy base-devel cmake gcc yasm git mercurial subversion gyp tar gmp-devel mpc-devel mpfr-devel python2 python2-pip python3 python3-pip zlib-devel unzip zip --needed
+    pacman -Sy base-devel cmake gcc yasm git mercurial subversion gyp tar gmp-devel mpc-devel mpfr-devel python2 python2-pip python3 python3-pip zlib-devel unzip zip libcrypt-devel --needed
 
 Don't install anything from the `mingw32` and `mingw64` repositories,
 it's better to completely disable them in `/etc/pacman.conf` just to be safe.
