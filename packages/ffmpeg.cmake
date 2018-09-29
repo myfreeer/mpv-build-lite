@@ -18,7 +18,7 @@ ExternalProject_Add(ffmpeg
         vorbis
         nvcodec-headers
         x264
-#        aom
+        dav1d
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
@@ -62,6 +62,7 @@ ExternalProject_Add(ffmpeg
         --enable-libmysofa
         --enable-amf
         --enable-libmfx
+        --enable-libdav1d
         --disable-w32threads
         --disable-debug
         --disable-doc

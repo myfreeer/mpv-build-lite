@@ -43,6 +43,7 @@ list(APPEND ep
     nvcodec-headers
     libmysofa
     aom
+    dav1d
     ffmpeg
     mujs
     spirv-headers
