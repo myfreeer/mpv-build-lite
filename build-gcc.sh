@@ -21,9 +21,9 @@ wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/shader
 sed -i 's/mpv-build-lite/build/g' install/mingw/lib/pkgconfig/crossc.pc
 
 # download pre-built versioned packages
-gmp_version="$(grep -ioP 'gmp-((\d+\.)+\d+)' packages/gmp.cmake | cut -d'-' -f2)"
-xvidcore_version="$(grep -ioP 'xvidcore-((\d+\.)+\d+)' packages/xvidcore.cmake | cut -d'-' -f2)"
-libiconv_version="$(grep -ioP 'libiconv-((\d+\.)+\d+)' packages/libiconv.cmake | cut -d'-' -f2)"
+gmp_version="$(grep -ioP 'gmp-((\d+\.)+\d+)' ../packages/gmp.cmake | cut -d'-' -f2)"
+xvidcore_version="$(grep -ioP 'xvidcore-((\d+\.)+\d+)' ../packages/xvidcore.cmake | cut -d'-' -f2)"
+libiconv_version="$(grep -ioP 'libiconv-((\d+\.)+\d+)' ../packages/libiconv.cmake | cut -d'-' -f2)"
 libiconv_package="libiconv-${libiconv_version}.7z"
 xvidcore_package="xvidcore-${xvidcore_version}.7z"
 gmp_package="gmp-${gmp_version}.7z"
