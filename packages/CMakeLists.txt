@@ -44,7 +44,6 @@ list(APPEND ep
     libmysofa
     aom
     ffmpeg
-    angle
     mujs
     spirv-headers
     spirv-tools
