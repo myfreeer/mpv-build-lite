@@ -22,3 +22,6 @@ skip_commits:
     - 'LICENSE'
     - '*.md'
     - '.gitingore'
+environment:
+  GITHUB_TOKEN:
+    secure: omnW0PL9kWxFUH/igxDUaOAW/JA3dybajD4IJl2ddj+55Nk1M/0YsJa+QWYInQtZ

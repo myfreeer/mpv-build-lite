@@ -16,6 +16,31 @@ cd install
 7z x -y ../toolchain.7z
 cd ..
 }
+
 cmake -DTARGET_ARCH=x86_64-w64-mingw32 -G Ninja ..
+
+# download pre-built shaderc
+wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/shaderc_and_crossc.7z"
+7z x -y shaderc_and_crossc.7z
+sed -i 's/mpv-build-lite/build/g' install/mingw/lib/pkgconfig/crossc.pc
+
+# download pre-built versioned packages
+gmp_version="$(grep -ioP 'gmp-((\d+\.)+\d+)' ../packages/gmp.cmake | cut -d'-' -f2)"
+xvidcore_version="$(grep -ioP 'xvidcore-((\d+\.)+\d+)' ../packages/xvidcore.cmake | cut -d'-' -f2)"
+libiconv_version="$(grep -ioP 'libiconv-((\d+\.)+\d+)' ../packages/libiconv.cmake | cut -d'-' -f2)"
+expat_version="$(grep -ioP 'expat-((\d+\.)+\d+)' ../packages/expat.cmake | cut -d'-' -f2)"
+lzo_version="$(grep -ioP 'lzo-((\d+\.)+\d+)' ../packages/lzo.cmake | cut -d'-' -f2)"
+libiconv_package="libiconv-${libiconv_version}.7z"
+xvidcore_package="xvidcore-${xvidcore_version}.7z"
+gmp_package="gmp-${gmp_version}.7z"
+expat_package="expat-${expat_version}.7z"
+lzo_package="lzo-${lzo_version}.7z"
+wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${libiconv_package}" && 7z x -y "${libiconv_package}"
+wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${xvidcore_package}" && 7z x -y "${xvidcore_package}"
+wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${gmp_package}" && 7z x -y "${gmp_package}"
+wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${expat_package}" && 7z x -y "${expat_package}"
+wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${lzo_package}" && 7z x -y "${lzo_package}"
+
+# build mpv
 ninja mpv
 cd ..
