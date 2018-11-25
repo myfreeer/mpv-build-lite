@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# temporary downgrade subversion to 1.10.3-1
+# svn: E175003: The server at 'https://github.com/GPUOpen-LibrariesAndSDKs/AMF/trunk/amf/public/include' does not support the HTTP/DAV protocol
+# https://mail-archives.apache.org/mod_mbox/subversion-users/201811.mbox/%3C16862E55-81D9-4FA7-B6D0-ABCCDD4D3E1D@obsigna.com%3E
+# https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=232945
+
+wget -nv http://repo.msys2.org/msys/x86_64/subversion-1.10.3-1-x86_64.pkg.tar.xz
+pacman -U --noconfirm subversion-1.10.3-1-x86_64.pkg.tar.xz
+
 mount  -fo binary,noacl,posix=0,auto "$(pwd -W)" '/build'
 cd /build
 
