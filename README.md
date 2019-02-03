@@ -72,6 +72,7 @@ Artifacts built by appveyor:
     - vapoursynth
     - nvcodec-headers
     - dav1d
+    - libplacebo
 
 - Zip
     - expat (2.2.6)
