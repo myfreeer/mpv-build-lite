@@ -14,6 +14,16 @@ sudo apt-get -m -y install \
 git config --global core.fileMode false
 chmod -R 777 .
 
+# workaround git user name and email not set
+GIT_USER_NAME="$(git config --global user.name)"
+GIT_USER_EMAIL="$(git config --global user.email)"
+if [[ "${GIT_USER_NAME}" = "" ]]; then
+    git config --global user.name "Build Bot"
+fi
+if [[ "${GIT_USER_EMAIL}" = "" ]]; then
+    git config --global user.email "you@example.com"
+fi
+
 # toolchain building and uploading
 # Thanks to https://github.com/mpv-android/mpv-android
 upload_to_github() {
@@ -134,5 +144,4 @@ appveyor PushArtifact VERSION
 # dump build logs
 cd ..
 7z a -mx9 -r logs.7z *.log *.cmake *.ninja *.txt
-curl -F'file=@logs.7z' https://0x0.st
-appveyor PushArtifact log.7z
+appveyor PushArtifact logs.7z
