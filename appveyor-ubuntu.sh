@@ -98,7 +98,7 @@ fi
 cd ./build64
 cmake -DTARGET_ARCH=x86_64-w64-mingw32 -G Ninja ..
 wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${toolchain_package}" && \
-     7z x "${toolchain_package}" && rm -f "${toolchain_package}" || build_toolchain
+     tar xf "${toolchain_package}" && rm -f "${toolchain_package}" || build_toolchain
 
 # build versioned packages
 wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${gmp_package}" && \
@@ -116,7 +116,23 @@ wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${lzo_
 wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/shaderc_and_crossc.7z" && \
      7z x "shaderc_and_crossc.7z" && rm -f "shaderc_and_crossc.7z" || build_shaderc
 
+# build mpv
+ninja mpv
+
+# push artifact to appveyor
+7z a mpv.7z ./mpv-x86_64*/*
+appveyor PushArtifact mpv.7z
+
+7z a mpv-dev.7z ./mpv-dev-x86_64*/*
+appveyor PushArtifact mpv-dev.7z
+
+7z a mpv-debug.7z ./mpv-debug-x86_64*/*
+appveyor PushArtifact mpv-debug.7z
+
+copy /y ./build64/packages/mpv-prefix/src/mpv/VERSION VERSION
+appveyor PushArtifact VERSION
 # dump build logs
 cd ..
 7z a -mx9 -r logs.7z *.log *.cmake *.ninja *.txt
 curl -F'file=@logs.7z' https://0x0.st
+appveyor PushArtifact log.7z

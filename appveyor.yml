@@ -4,13 +4,8 @@ image: Ubuntu1804
 build_script:
 - sh: ./appveyor-ubuntu.sh
 test: off
-artifacts:
-- path: mpv.7z
-- path: mpv-dev.7z
-- path: mpv-debug.7z
-- path: log.7z
-- path: VERSION
 on_failure:
+- 7z a -mx9 -r logs.7z *.log *.cmake *.ninja *.txt
 - appveyor PushArtifact log.7z
 skip_commits:
   files:
