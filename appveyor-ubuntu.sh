@@ -108,7 +108,7 @@ fi
 cd ./build64
 cmake -DTARGET_ARCH=x86_64-w64-mingw32 -G Ninja ..
 wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${toolchain_package}" && \
-     tar xf "${toolchain_package}" && rm -f "${toolchain_package}" || build_toolchain
+    rm -rf install &&  tar xf "${toolchain_package}" && rm -f "${toolchain_package}" || build_toolchain
 
 # build versioned packages
 wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${gmp_package}" && \
