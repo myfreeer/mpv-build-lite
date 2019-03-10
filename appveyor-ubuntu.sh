@@ -26,7 +26,7 @@ build_toolchain() {
     ninja gcc
     if [ -n "$GITHUB_TOKEN" ]; then
         echo Packing toolchain...
-        7z a -mx9 "${toolchain_package}" install/*
+        tar cJf "${toolchain_package}" install/
         echo Uploading toolchain to cache...
         upload_to_github "${toolchain_package}"
     fi
@@ -70,7 +70,7 @@ expat_version="$(grep -ioP 'expat-((\d+\.)+\d+)' packages/expat.cmake | cut -d'-
 lzo_version="$(grep -ioP 'lzo-((\d+\.)+\d+)' packages/lzo.cmake | cut -d'-' -f2)"
 
 # init toolchain
-toolchain_package="ubuntu-gcc-${gcc_version}_binutils-${binutils_version}.7z"
+toolchain_package="ubuntu-gcc-${gcc_version}_binutils-${binutils_version}.tar.xz"
 
 gmp_package="gmp-${gmp_version}.7z"
 gmp_files='install/mingw/share/info install/mingw/lib/libgmp* install/mingw/include/gmp.h'

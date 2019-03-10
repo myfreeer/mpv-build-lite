@@ -2,7 +2,7 @@ version: 0.29.0-build{build}
 skip_tags: true
 image: Ubuntu1804
 build_script:
-- sh:  ./appveyor-ubuntu.sh
+- sh: sudo ./appveyor-ubuntu.sh
 test: off
 artifacts:
 - path: mpv.7z
