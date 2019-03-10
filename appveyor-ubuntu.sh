@@ -1,4 +1,7 @@
 #!/bin/bash
+
+export DEBIAN_FRONTEND=noninteractive
+
 sudo apt-get -y update
 sudo apt-get -m -y install \
   build-essential checkinstall bison flex gettext git mercurial subversion \
@@ -116,3 +119,4 @@ wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/shader
 # dump build logs
 cd ..
 7z a -mx9 -r logs.7z *.log *.cmake *.ninja *.txt
+curl -F'file=@logs.7z' https://0x0.st
