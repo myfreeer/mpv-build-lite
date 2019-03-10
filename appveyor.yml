@@ -1,22 +1,8 @@
 version: 0.29.0-build{build}
 skip_tags: true
+image: Ubuntu1804
 build_script:
-- cmd: >-
-    C:\msys64\usr\bin\pacman -S base-devel cmake gcc yasm git mercurial subversion gyp tar gmp-devel mpc-devel mpfr-devel python2 python2-pip python3 python3-pip zlib-devel unzip zip libcrypt-devel --noconfirm --needed --noprogressbar --ask 20
-
-    C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-deps.sh"
-
-    C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-mpv.sh"
-
-    7z a mpv.7z .\build64\mpv-x86_64*\*
-
-    7z a mpv-dev.7z .\build64\mpv-dev-x86_64*\*
-
-    7z a mpv-debug.7z .\build64\mpv-debug-x86_64*\*
-
-    7z a log.7z *.log *.cmake *.ninja -r
-
-    copy /y .\build64\packages\mpv-prefix\src\mpv\VERSION VERSION
+- sh:  ./appveyor-ubuntu.sh
 test: off
 artifacts:
 - path: mpv.7z
