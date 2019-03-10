@@ -7,6 +7,10 @@ sudo apt-get -m -y install \
   libgcrypt-dev gperf ragel texinfo autopoint re2c asciidoc python-docutils \
   rst2pdf docbook2x unzip p7zip-full curl
 
+# workaround for git
+git config --global core.fileMode false
+chmod -R 777 .
+
 # toolchain building and uploading
 # Thanks to https://github.com/mpv-android/mpv-android
 upload_to_github() {
