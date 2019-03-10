@@ -1,5 +1,6 @@
 ExternalProject_Add(ffmpeg
     DEPENDS
+        amf
         bzip2
         game-music-emu
         lame
@@ -9,11 +10,14 @@ ExternalProject_Add(ffmpeg
         libsoxr
         libzimg
         libmysofa
-        opus
+        libmodplug
         libxml2
-        amf
         libmfx
+        opus
+        speex
+        vorbis
         nvcodec-headers
+        x264
 #        aom
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
     GIT_SHALLOW 1
