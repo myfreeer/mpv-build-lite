@@ -5,10 +5,12 @@ export DEBIAN_FRONTEND=noninteractive
 sudo apt-get -y update
 sudo apt-get -m -y install \
   build-essential checkinstall bison flex gettext git mercurial subversion \
-  ninja-build gyp cmake meson yasm nasm automake pkg-config libtool \
+  ninja-build gyp cmake yasm nasm automake pkg-config libtool \
   libtool-bin gcc-multilib g++-multilib libgmp-dev libmpfr-dev libmpc-dev \
   libgcrypt-dev gperf ragel texinfo autopoint re2c asciidoc python-docutils \
-  rst2pdf docbook2x unzip p7zip-full curl
+  rst2pdf docbook2x unzip p7zip-full curl  python3-pip
+
+sudo pip3 install meson
 
 # workaround for git
 git config --global core.fileMode false
