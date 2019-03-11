@@ -139,7 +139,7 @@ appveyor PushArtifact mpv-dev.7z
 7z a mpv-debug.7z ./mpv-debug-x86_64*/*
 appveyor PushArtifact mpv-debug.7z
 
-cp ./build64/packages/mpv-prefix/src/mpv/VERSION VERSION
+cp packages/mpv-prefix/src/mpv/VERSION VERSION
 appveyor PushArtifact VERSION
 # dump build logs
 cd ..

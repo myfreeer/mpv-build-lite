@@ -10,7 +10,6 @@ Artifacts built by appveyor:
 * 64-bit static mpv binary with pdf docs: [mpv.7z](https://ci.appveyor.com/api/projects/myfreeer/mpv-build-lite/artifacts/mpv.7z?branch=master)
 * 64-bit shared libmpv dll and headers: [mpv-dev.7z](https://ci.appveyor.com/api/projects/myfreeer/mpv-build-lite/artifacts/mpv-dev.7z?branch=master)
 * 64-bit debugging symbol for mpv: [mpv-debug.7z](https://ci.appveyor.com/api/projects/myfreeer/mpv-build-lite/artifacts/mpv-debug.7z?branch=master)
-* 64-bit pre-build toolchain: [toolchain.7z](https://ci.appveyor.com/api/projects/myfreeer/mpv-build-lite/artifacts/toolchain.7z?branch=toolchain)
 
 ## Prerequisites
 
@@ -72,7 +71,7 @@ Artifacts built by appveyor:
     - libmodplug
     - vapoursynth
     - nvcodec-headers
-    - aom
+    - dav1d
 
 - Zip
     - expat (2.2.6)
