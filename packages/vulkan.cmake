@@ -1,5 +1,6 @@
 ExternalProject_Add(vulkan-header
     GIT_REPOSITORY https://github.com/KhronosGroup/Vulkan-Headers.git
+    GIT_TAG "v1.1.102"
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
     CMAKE_ARGS
@@ -16,6 +17,7 @@ extra_step(vulkan-header)
 ExternalProject_Add(vulkan
     DEPENDS vulkan-header
     GIT_REPOSITORY https://github.com/KhronosGroup/Vulkan-Loader.git
+    GIT_TAG "v1.1.102"
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
     PATCH_COMMAND ${EXEC} git am ${CMAKE_CURRENT_SOURCE_DIR}/vulkan-*.patch
