@@ -10,7 +10,6 @@ Artifacts built by appveyor:
 * 64-bit static mpv binary with pdf docs: [mpv.7z](https://ci.appveyor.com/api/projects/myfreeer/mpv-build-lite/artifacts/mpv.7z?branch=master)
 * 64-bit shared libmpv dll and headers: [mpv-dev.7z](https://ci.appveyor.com/api/projects/myfreeer/mpv-build-lite/artifacts/mpv-dev.7z?branch=master)
 * 64-bit debugging symbol for mpv: [mpv-debug.7z](https://ci.appveyor.com/api/projects/myfreeer/mpv-build-lite/artifacts/mpv-debug.7z?branch=master)
-* 64-bit pre-build toolchain: [toolchain.7z](https://ci.appveyor.com/api/projects/myfreeer/mpv-build-lite/artifacts/toolchain.7z?branch=toolchain)
 
 ## Prerequisites
 
@@ -72,7 +71,7 @@ Artifacts built by appveyor:
     - libmodplug
     - vapoursynth
     - nvcodec-headers
-    - aom
+    - dav1d
 
 - Zip
     - expat (2.2.6)
@@ -100,10 +99,9 @@ These packages need to be installed first before compiling mpv:
 
 **Note:**
 
-* Works for Ubuntu 15.10 and later. Ubuntu 14.04 used outdated packages which make compilation failed. For WSL, upgrade with [this](https://github.com/Microsoft/BashOnWindows/issues/482#issuecomment-230551101) [step](https://github.com/Microsoft/BashOnWindows/issues/482#issuecomment-234695431)
 * Use [apt-fast](https://github.com/ilikenwf/apt-fast) if apt-get is too slow.
 * It is advised to use bash over dash. Set `sudo ln -sf /bin/bash /bin/sh`. Revert back by `sudo ln -sf /bin/dash /bin/sh`.
-* For WSL, some packages will fail when compiling to 32bit. This is because WSL [doesn't support multilib ABI](https://github.com/Microsoft/BashOnWindows/issues/711/) yet.
+* On WSL platform, compiling 32bit require qemu. Refer to [this](https://github.com/Microsoft/WSL/issues/2468#issuecomment-374904520).
 
 ### Cygwin
 
@@ -115,18 +113,7 @@ Additionally, some packages, `re2c`, `ninja`, `ragel`, `gyp`, `rst2pdf` need to 
 
 ### MSYS2
 
-Install MSYS2 and run it via `MSYS2 MSYS` shortcut.
-Don't use `MSYS2 MinGW 32-bit` or `MSYS2 MinGW 64-bit` shortcuts, that's important!
-
-These packages need to be installed first before compiling mpv:
-
-    pacman -Sy base-devel cmake gcc yasm git mercurial subversion gyp tar gmp-devel mpc-devel mpfr-devel python2 python2-pip python3 python3-pip zlib-devel unzip zip libcrypt-devel --needed
-
-Don't install anything from the `mingw32` and `mingw64` repositories,
-it's better to completely disable them in `/etc/pacman.conf` just to be safe.
-
-Additionally, some packages, `ninja`, `ragel`, `libjpeg`, `rst2pdf`, `meson` need to be [installed manually](build-deps.sh)
-or use `build-deps.sh` to automatically download, build, and install them.
+Building on MSYS2 is currently broken since meson [won't work](https://github.com/mesonbuild/meson/blob/46f3b8f75354af8e87ee267a94e7ae4602789e53/docs/markdown/Getting-meson.md#msys2-python3-quirks) on MSYS2, which is now required to build dav1d decoder.
 
 ## Building Software (First Time)
 
@@ -151,8 +138,6 @@ First, you need to build toolchain. By default, it will be installed in `install
 After it done, you're ready to build mpv and all its dependencies:
 
     ninja mpv
-
-For MSYS2, you can just use `build-mpv.sh` for a 64-bit build, ignoring steps above.
 
 ## Building Software (Second Time)
 
