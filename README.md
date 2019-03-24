@@ -113,18 +113,7 @@ Additionally, some packages, `re2c`, `ninja`, `ragel`, `gyp`, `rst2pdf` need to 
 
 ### MSYS2
 
-Install MSYS2 and run it via `MSYS2 MSYS` shortcut.
-Don't use `MSYS2 MinGW 32-bit` or `MSYS2 MinGW 64-bit` shortcuts, that's important!
-
-These packages need to be installed first before compiling mpv:
-
-    pacman -Sy base-devel cmake gcc yasm git mercurial subversion gyp tar gmp-devel mpc-devel mpfr-devel python2 python2-pip python3 python3-pip zlib-devel unzip zip libcrypt-devel --needed
-
-Don't install anything from the `mingw32` and `mingw64` repositories,
-it's better to completely disable them in `/etc/pacman.conf` just to be safe.
-
-Additionally, some packages, `ninja`, `ragel`, `libjpeg`, `rst2pdf`, `meson` need to be [installed manually](build-deps.sh)
-or use `build-deps.sh` to automatically download, build, and install them.
+Building on MSYS2 is currently broken since meson [won't work](https://github.com/mesonbuild/meson/blob/46f3b8f75354af8e87ee267a94e7ae4602789e53/docs/markdown/Getting-meson.md#msys2-python3-quirks) on MSYS2, which is now required to build dav1d decoder.
 
 ## Building Software (First Time)
 
@@ -149,8 +138,6 @@ First, you need to build toolchain. By default, it will be installed in `install
 After it done, you're ready to build mpv and all its dependencies:
 
     ninja mpv
-
-For MSYS2, you can just use `build-mpv.sh` for a 64-bit build, ignoring steps above.
 
 ## Building Software (Second Time)
 
