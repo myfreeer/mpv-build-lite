@@ -91,6 +91,7 @@ lzo_version="$(grep -ioP 'lzo-((\d+\.)+\d+)' packages/lzo.cmake | cut -d'-' -f2)
 # init toolchain
 toolchain_package="ubuntu-gcc-${gcc_version}_binutils-${binutils_version}.tar.xz"
 
+openal_package="openal-soft-5ac1967-20190519.7z"
 gmp_package="gmp-${gmp_version}.7z"
 gmp_files='install/mingw/share/info install/mingw/lib/libgmp* install/mingw/include/gmp.h'
 xvidcore_package="xvidcore-${xvidcore_version}.7z"
@@ -123,6 +124,8 @@ wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${expa
      7z x "${expat_package}" && rm -f "${expat_package}" || build_package expat
 wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${lzo_package}" && \
      7z x "${lzo_package}" && rm -f "${lzo_package}" || build_package lzo
+wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${openal_package}" && \
+     7z x "${openal_package}" && rm -f "${openal_package}"
 
 # build shaderc and crossc
 wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/shaderc_and_crossc.7z" && \

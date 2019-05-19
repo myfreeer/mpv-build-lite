@@ -13,7 +13,7 @@ ExternalProject_Add(mpv
         luajit
         rubberband
         uchardet
-        openal-soft
+#        openal-soft
         mujs
         vulkan
         libplacebo
