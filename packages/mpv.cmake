@@ -40,6 +40,7 @@ ExternalProject_Add(mpv
         --enable-rubberband
         --enable-lcms2
         --enable-openal
+        --enable-spirv-cross
         --enable-vulkan
         --disable-egl-angle-lib
         --prefix=${MINGW_INSTALL_PREFIX}

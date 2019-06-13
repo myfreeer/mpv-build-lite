@@ -52,7 +52,6 @@ list(APPEND ep
     glslang
     vulkan
     shaderc
-    crossc
     libplacebo
     curl
     vapoursynth
