@@ -1,9 +1,10 @@
 #!/bin/bash
 
 export DEBIAN_FRONTEND=noninteractive
+export DEBIAN_PRIORITY=critical
 
-sudo apt-get -y update
-sudo apt-get -m -y install \
+sudo -E  apt-get -qy update
+sudo -E  apt-get -m -y install \
   build-essential checkinstall bison flex gettext git mercurial subversion \
   ninja-build gyp cmake yasm nasm automake pkg-config libtool \
   libtool-bin gcc-multilib g++-multilib libgmp-dev libmpfr-dev libmpc-dev \
