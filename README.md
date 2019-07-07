@@ -83,7 +83,7 @@ Artifacts built by appveyor:
     - speex (1.2.0)
     - ogg (1.3.3)
     - lzo (2.10)
-    - libiconv (1.15)
+    - libiconv (1.16)
     - gmp (6.1.2)
 
 
