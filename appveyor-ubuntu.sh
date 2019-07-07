@@ -65,11 +65,13 @@ build_package() {
         upload_to_github "${package}"
     fi
 }
+
+shaderc_package="shaderc_and_spirv-cross.7z"
 build_shaderc() {
     ninja shaderc spirv-cross
     if [ -n "$GITHUB_TOKEN" ]; then
-        echo Packing shaderc_and_spirv-cross...
-        7z a -mx9 shaderc_and_crossc.7z \
+        echo Packing ${shaderc_package}...
+        7z a -mx9 "${shaderc_package}" \
             install/mingw/lib/libshaderc_combined.a \
             install/mingw/include/shaderc/* \
             install/mingw/include/spirv_cross/* \
@@ -83,8 +85,8 @@ build_shaderc() {
             install/mingw/lib/libspirv-cross-msl.a  \
             install/mingw/lib/libspirv-cross-reflect.a \
             install/mingw/lib/libspirv-cross-util.a
-        echo Uploading shaderc_and_spirv-cross to cache...
-        upload_to_github shaderc_and_spirv-cross.7z
+        echo Uploading ${shaderc_package} to cache...
+        upload_to_github "${shaderc_package}"
     fi
 }
 # init toolchain versions
@@ -135,7 +137,7 @@ wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${lzo_
 
 # build shaderc and spirv-cross
 wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/shaderc_and_spirv-cross.7z" && \
-     7z x "shaderc_and_spirv-cross.7z" && rm -f "shaderc_and_spirv-cross.7z" || build_shaderc
+     7z x "${shaderc_package}" && rm -f "${shaderc_package}" || build_shaderc
 
 # build mpv
 ninja mpv
