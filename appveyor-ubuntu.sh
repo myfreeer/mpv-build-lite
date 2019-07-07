@@ -65,17 +65,25 @@ build_package() {
     fi
 }
 build_shaderc() {
-    ninja shaderc crossc
+    ninja shaderc spirv-cross
     if [ -n "$GITHUB_TOKEN" ]; then
-        echo Packing shaderc_and_crossc...
+        echo Packing shaderc_and_spirv-cross...
         7z a -mx9 shaderc_and_crossc.7z \
             install/mingw/lib/libshaderc_combined.a \
             install/mingw/include/shaderc/* \
-            install/mingw/include/crossc.h \
-            install/mingw/lib/pkgconfig/crossc.pc \
-            install/mingw/lib/libcrossc.a
-        echo Uploading shaderc_and_crossc to cache...
-        upload_to_github shaderc_and_crossc.7z
+            install/mingw/include/spirv_cross/* \
+            install/mingw/lib/pkgconfig/spirv-cross.pc \
+            install/mingw/lib/libspirv-cross-c-shared.a \
+            install/mingw/lib/libspirv-cross-c.a  \
+            install/mingw/lib/libspirv-cross-core.a \
+            install/mingw/lib/libspirv-cross-cpp.a  \
+            install/mingw/lib/libspirv-cross-glsl.a  \
+            install/mingw/lib/libspirv-cross-hlsl.a  \
+            install/mingw/lib/libspirv-cross-msl.a  \
+            install/mingw/lib/libspirv-cross-reflect.a \
+            install/mingw/lib/libspirv-cross-util.a
+        echo Uploading shaderc_and_spirv-cross to cache...
+        upload_to_github shaderc_and_spirv-cross.7z
     fi
 }
 # init toolchain versions
@@ -124,9 +132,9 @@ wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${expa
 wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/${lzo_package}" && \
      7z x "${lzo_package}" && rm -f "${lzo_package}" || build_package lzo
 
-# build shaderc and crossc
-wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/shaderc_and_crossc.7z" && \
-     7z x "shaderc_and_crossc.7z" && rm -f "shaderc_and_crossc.7z" || build_shaderc
+# build shaderc and spirv-cross
+wget -nv "https://github.com/myfreeer/build-cache/releases/download/cache/shaderc_and_spirv-cross.7z" && \
+     7z x "shaderc_and_spirv-cross.7z" && rm -f "shaderc_and_spirv-cross.7z" || build_shaderc
 
 # build mpv
 ninja mpv
