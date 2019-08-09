@@ -63,7 +63,6 @@ ExternalProject_Add(ffmpeg
         --enable-amf
         --enable-libmfx
         --enable-libdav1d
-        --disable-w32threads
         --disable-debug
         --disable-doc
         --disable-programs
