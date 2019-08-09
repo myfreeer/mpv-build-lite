@@ -76,7 +76,7 @@ Artifacts built by appveyor:
 
 - Zip
     - expat (2.2.7)
-    - bzip (1.0.6)
+    - bzip (1.0.8)
     - zlib (1.2.11)
     - xvidcore (1.3.5)
     - vorbis (1.3.6)
