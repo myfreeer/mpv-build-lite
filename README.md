@@ -75,7 +75,7 @@ Artifacts built by appveyor:
     - libplacebo
 
 - Zip
-    - expat (2.2.6)
+    - expat (2.2.7)
     - bzip (1.0.6)
     - zlib (1.2.11)
     - xvidcore (1.3.5)
