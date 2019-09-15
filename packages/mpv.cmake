@@ -34,7 +34,6 @@ ExternalProject_Add(mpv
         --enable-libarchive
         --enable-libass
         --enable-libbluray
-        --enable-dvdread
         --enable-dvdnav
         --enable-uchardet
         --enable-rubberband
