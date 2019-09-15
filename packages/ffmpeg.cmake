@@ -8,6 +8,7 @@ ExternalProject_Add(ffmpeg
         libbluray
         libpng
         libsoxr
+        libwebp
         libzimg
         libmysofa
         libmodplug
@@ -49,6 +50,7 @@ ExternalProject_Add(ffmpeg
         --enable-libsoxr
         --enable-libspeex
         --enable-libvorbis
+        --enable-libwebp
         --enable-libx264
 #       --enable-libaom
         --enable-libxvid

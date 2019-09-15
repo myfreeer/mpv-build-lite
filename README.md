@@ -39,6 +39,7 @@ Artifacts built by appveyor:
     - mpv
     - luajit
     - libvpx
+    - libwebp
     - libpng
     - libsoxr
     - libzimg
