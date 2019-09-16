@@ -44,6 +44,7 @@ list(APPEND ep
     libmysofa
     aom
     dav1d
+    libwebp
     ffmpeg
     mujs
     spirv-headers
