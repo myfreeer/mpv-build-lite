@@ -21,6 +21,7 @@ ExternalProject_Add(ffmpeg
         x264
         dav1d
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
+    GIT_TAG "n4.2.1"
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
     CONFIGURE_COMMAND ${EXEC} <SOURCE_DIR>/configure
