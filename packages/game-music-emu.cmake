@@ -1,12 +1,10 @@
 ExternalProject_Add(game-music-emu
-    GIT_REPOSITORY https://bitbucket.org/mpyne/game-music-emu.git
-    GIT_SHALLOW 1
-    UPDATE_COMMAND ""
+    URL https://bitbucket.org/mpyne/game-music-emu/downloads/game-music-emu-0.6.2.tar.xz
+    URL_HASH SHA512=1808d28b54cbbd8dc5e3240eb27d2e546398fb62ab6577e59430a7543cfdaa06482f70b4750656b73a05f1c1bc0c0254db97d0940271ea2144724e1c44f5da10
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${MINGW_INSTALL_PREFIX} -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE} -DBUILD_SHARED_LIBS=OFF -DENABLE_UBSAN=NO
     BUILD_COMMAND ${CMAKE_MAKE_PROGRAM}
     INSTALL_COMMAND ${CMAKE_MAKE_PROGRAM} install
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
 
-force_rebuild_git(game-music-emu)
 extra_step(game-music-emu)

@@ -52,7 +52,6 @@ Artifacts built by appveyor:
     - lcms2
     - lame
     - harfbuzz
-    - game-music-emu
     - freetype2
     - flac
     - opus-tools
@@ -86,6 +85,7 @@ Artifacts built by appveyor:
     - lzo (2.10)
     - libiconv (1.16)
     - gmp (6.1.2)
+    - game-music-emu (0.6.2)
 
 
 ## Setup Build Environment
