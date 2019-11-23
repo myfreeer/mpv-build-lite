@@ -1,33 +1,19 @@
-From 59fd269c968006687fe4537885d4272494e18cb1 Mon Sep 17 00:00:00 2001
-From: myfreeer <myfreeer@users.noreply.github.com>
-Date: Sat, 23 Nov 2019 12:28:42 +0800
+From 1c6e5c1564a144f8e102b77ac84478058afb5b78 Mon Sep 17 00:00:00 2001
+From: shinchiro <shinchiro@users.noreply.github.com>
+Date: Sat, 23 Nov 2019 22:41:11 +0800
 Subject: [PATCH] loader: cross-compile & static linking hacks
 
 ---
- CMakeLists.txt              |  1 +
- loader/CMakeLists.txt       | 54 +++++++++++++++++++++++--------------
- loader/loader.c             |  6 ++++-
+ loader/CMakeLists.txt       | 14 +++++++-------
+ loader/loader.c             |  6 +++++-
  loader/loader.h             |  3 +++
- loader/loader.rc            |  5 +++-
- loader/vk_loader_platform.h | 16 +++++++++++
- loader/vulkan.pc.in         |  4 +--
- tests/CMakeLists.txt        |  5 +++-
- 8 files changed, 69 insertions(+), 25 deletions(-)
+ loader/loader.rc            |  5 ++++-
+ loader/vk_loader_platform.h | 16 ++++++++++++++++
+ loader/vulkan.pc.in         |  4 ++--
+ 6 files changed, 37 insertions(+), 11 deletions(-)
 
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index d152145..d659ef8 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -120,6 +120,7 @@ endif()
- 
- if(WIN32)
-     option(ENABLE_WIN10_ONECORE "Link the loader with OneCore umbrella libraries" OFF)
-+    option(ENABLE_STATIC_LOADER "Build the loader as a static library" OFF)
- endif()
- 
- option(BUILD_LOADER "Build loader" ON)
 diff --git a/loader/CMakeLists.txt b/loader/CMakeLists.txt
-index 13a36a2..0bac961 100644
+index 13a36a2..d87730f 100644
 --- a/loader/CMakeLists.txt
 +++ b/loader/CMakeLists.txt
 @@ -61,7 +61,7 @@ endif()
@@ -57,60 +43,14 @@ index 13a36a2..0bac961 100644
      add_library(loader-norm OBJECT ${NORMAL_LOADER_SRCS} dirent_on_windows.c dxgi_loader.c)
      target_compile_options(loader-norm PUBLIC "$<$<CONFIG:DEBUG>:${LOCAL_C_FLAGS_DBG}>")
      target_compile_options(loader-norm PUBLIC ${MSVC_LOADER_COMPILE_OPTIONS})
-@@ -189,19 +189,31 @@ if(WIN32)
-     target_compile_options(loader-opt PUBLIC ${MSVC_LOADER_COMPILE_OPTIONS})
-     target_include_directories(loader-opt PRIVATE "$<TARGET_PROPERTY:Vulkan::Headers,INTERFACE_INCLUDE_DIRECTORIES>")
- 
--    add_library(vulkan
--                SHARED
--                $<TARGET_OBJECTS:loader-opt>
--                $<TARGET_OBJECTS:loader-norm>
--                $<TARGET_OBJECTS:loader-unknown-chain>
--                ${CMAKE_CURRENT_SOURCE_DIR}/vulkan-1.def
--                ${CMAKE_CURRENT_SOURCE_DIR}/loader.rc)
--    set_target_properties(vulkan
--                          PROPERTIES LINK_FLAGS_DEBUG
--                                     "/ignore:4098"
--                                     OUTPUT_NAME
--                                     vulkan-1)
--    target_link_libraries(vulkan Vulkan::Headers)
-+    if(NOT ENABLE_STATIC_LOADER)
-+        target_compile_definitions(loader-norm PUBLIC LOADER_DYNAMIC_LIB)
-+        target_compile_definitions(loader-opt PUBLIC LOADER_DYNAMIC_LIB)
-+
-+        add_library(vulkan
-+                    SHARED
-+                    $<TARGET_OBJECTS:loader-opt>
-+                    $<TARGET_OBJECTS:loader-norm>
-+                    $<TARGET_OBJECTS:loader-unknown-chain>
-+                    ${CMAKE_CURRENT_SOURCE_DIR}/vulkan-1.def
-+                    ${CMAKE_CURRENT_SOURCE_DIR}/loader.rc)
-+        set_target_properties(vulkan
-+                              PROPERTIES LINK_FLAGS_DEBUG
-+                                         "/ignore:4098"
-+                                         OUTPUT_NAME
-+                                         vulkan-1)
-+        target_link_libraries(vulkan Vulkan::Headers)
-+    else()
-+        add_library(vulkan
-+                    STATIC
-+                    $<TARGET_OBJECTS:loader-opt>
-+                    $<TARGET_OBJECTS:loader-norm>
-+                    $<TARGET_OBJECTS:loader-unknown-chain>)
-+        set_target_properties(vulkan PROPERTIES OUTPUT_NAME VKstatic.1)
-+    endif()
- 
-     if(ENABLE_WIN10_ONECORE)
-         target_link_libraries(vulkan OneCoreUAP.lib LIBCMT.LIB LIBCMTD.LIB LIBVCRUNTIME.LIB LIBUCRT.LIB)
-@@ -222,13 +234,16 @@ else()
+@@ -222,13 +222,15 @@ else()
          set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-typedef-redefinition")
      endif()
  
 -    add_library(vulkan SHARED ${NORMAL_LOADER_SRCS} ${OPT_LOADER_SRCS})
-+    add_library(vulkan ${NORMAL_LOADER_SRCS} ${OPT_LOADER_SRCS} dxgi_loader.c)
++    add_library(vulkan STATIC ${NORMAL_LOADER_SRCS} ${OPT_LOADER_SRCS} dxgi_loader.c)
      add_dependencies(vulkan loader_asm_gen_files)
 +    if (NOT ENABLE_STATIC_LOADER)
-+    target_compile_definitions(vulkan PUBLIC LOADER_DYNAMIC_LIB)
      set_target_properties(vulkan
                            PROPERTIES SOVERSION
                                       "1"
@@ -120,15 +60,7 @@ index 13a36a2..0bac961 100644
      target_link_libraries(vulkan ${CMAKE_DL_LIBS} pthread m)
      target_link_libraries(vulkan Vulkan::Headers)
  
-@@ -256,6 +271,7 @@ else()
-             ${VulkanHeaders_INCLUDE_DIRS}/vulkan/vulkan.hpp)
-         add_library(vulkan-framework SHARED ${NORMAL_LOADER_SRCS} ${OPT_LOADER_SRCS} ${FRAMEWORK_HEADERS})
-         add_dependencies(vulkan-framework loader_asm_gen_files)
-+        target_compile_definitions(vulkan-framework PUBLIC LOADER_DYNAMIC_LIB)
-         target_link_libraries(vulkan-framework -ldl -lpthread -lm "-framework CoreFoundation")
-         target_link_libraries(vulkan-framework Vulkan::Headers)
- 
-@@ -286,9 +302,7 @@ else()
+@@ -286,9 +288,7 @@ else()
          include(FindPkgConfig QUIET)
          if(PKG_CONFIG_FOUND)
              set(VK_API_VERSION "${VulkanHeaders_VERSION_MAJOR}.${VulkanHeaders_VERSION_MINOR}.${VulkanHeaders_VERSION_PATCH}")
@@ -237,29 +169,6 @@ index 2ce5aea..6e89703 100644
  includedir=${prefix}/include
  
  Name: @CMAKE_PROJECT_NAME@
-diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
-index d9418e5..1d7bc17 100644
---- a/tests/CMakeLists.txt
-+++ b/tests/CMakeLists.txt
-@@ -105,6 +105,9 @@ else()
- endif()
- 
- target_link_libraries(vk_loader_validation_tests "${LOADER_LIB}" gtest gtest_main)
-+if(BUILD_LOADER AND ENABLE_STATIC_LOADER)
-+    set_target_properties(vk_loader_validation_tests PROPERTIES LINK_FLAGS "/ignore:4098")
-+endif()
- 
- # Copy loader and googletest (gtest) libs to test dir so the test executable can find them.
- if(WIN32)
-@@ -124,7 +127,7 @@ if(WIN32)
-                        COMMAND xcopy /Y /I ${GTEST_COPY_SRC1} ${GTEST_COPY_DEST}
-                        COMMAND xcopy /Y /I ${GTEST_COPY_SRC2} ${GTEST_COPY_DEST})
-     # Copy the loader shared lib (if built) to the test application directory so the test app finds it.
--    if(TARGET vulkan)
-+    if((NOT ENABLE_STATIC_LOADER) AND TARGET vulkan)
-         add_custom_command(TARGET vk_loader_validation_tests POST_BUILD
-                            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:vulkan> $<TARGET_FILE_DIR:vk_loader_validation_tests>)
-     endif()
 -- 
-2.23.0
+2.17.1
 
