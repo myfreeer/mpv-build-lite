@@ -11,6 +11,19 @@ sudo -E  apt-get -m -y install \
   libgcrypt-dev gperf ragel texinfo autopoint re2c asciidoc python-docutils \
   rst2pdf docbook2x unzip p7zip-full curl  python3-pip
 
+# workaround for latest nasm required by dav1d
+sudo apt-get -y remove nasm
+NASM_VER=2.14.02
+wget "http://www.nasm.us/pub/nasm/releasebuilds/${NASM_VER}/nasm-${NASM_VER}.tar.xz"
+tar -xf "nasm-${NASM_VER}.tar.xz"
+cd "nasm-${NASM_VER}/"
+./configure --prefix=/usr
+make -j$(nproc)
+sudo make install
+cd ..
+# end nasm
+
+
 sudo pip3 install meson
 
 # workaround for git
@@ -51,6 +64,7 @@ build_toolchain() {
         upload_to_github "${toolchain_package}"
     fi
 }
+
 build_package() {
     local name=$1
     local version="$(eval echo "\${${name}_version}")"
