@@ -1,4 +1,4 @@
-version: 0.31.0-build{build}
+version: 0.32.0-build{build}
 skip_tags: true
 image: Ubuntu1804
 build_script:
