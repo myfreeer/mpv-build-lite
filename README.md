@@ -78,7 +78,7 @@ Artifacts built by appveyor:
     - expat (2.2.9)
     - bzip (1.0.8)
     - zlib (1.2.11)
-    - xvidcore (1.3.6)
+    - xvidcore (1.3.7)
     - vorbis (1.3.6)
     - speex (1.2.0)
     - ogg (1.3.4)
