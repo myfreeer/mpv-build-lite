@@ -32,7 +32,6 @@ ExternalProject_Add(mpv
         --enable-lua
         --enable-javascript
         --enable-libarchive
-        --enable-libass
         --enable-libbluray
         --enable-dvdnav
         --enable-uchardet
