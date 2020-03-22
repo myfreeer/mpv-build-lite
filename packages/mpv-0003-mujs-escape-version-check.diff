@@ -1,13 +1,13 @@
 diff --git a/wscript b/wscript
-index 99263b7ee5..b658957b02 100644
+index 55f97d2..00dd36b 100644
 --- a/wscript
 +++ b/wscript
-@@ -292,7 +292,7 @@ iconv support use --disable-iconv.",
+@@ -334,7 +334,7 @@ iconv support use --disable-iconv.",
      }, {
          'name' : '--javascript',
          'desc' : 'Javascript (MuJS backend)',
 -        'func': check_pkg_config('mujs', '>= 1.0.0'),
 +        'func': check_pkg_config('mujs'),
      }, {
-         'name': '--libass',
+         'name': 'libass',
          'desc': 'SSA/ASS support',
