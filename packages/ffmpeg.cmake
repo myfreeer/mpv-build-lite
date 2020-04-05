@@ -37,7 +37,6 @@ ExternalProject_Add(ffmpeg
         --enable-nonfree
         --enable-avresample
         --enable-postproc
-        --enable-avisynth
         --enable-gmp
         --enable-libass
         --enable-libbluray
