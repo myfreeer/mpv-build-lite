@@ -40,6 +40,7 @@ list(APPEND ep
     libxml2
     amf
     libmfx
+    avisynth-headers
     nvcodec-headers
     libmysofa
     aom

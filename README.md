@@ -70,6 +70,7 @@ Artifacts built by appveyor:
     - libmfx
     - libmodplug
     - vapoursynth
+    - avisynth-headers
     - nvcodec-headers
     - dav1d
     - libplacebo

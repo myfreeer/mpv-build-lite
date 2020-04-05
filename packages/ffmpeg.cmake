@@ -17,6 +17,7 @@ ExternalProject_Add(ffmpeg
         opus
         speex
         vorbis
+	avisynth-headers
         nvcodec-headers
         x264
         dav1d
