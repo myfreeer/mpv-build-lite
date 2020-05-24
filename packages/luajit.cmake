@@ -22,6 +22,7 @@ ExternalProject_Add(luajit
     #GIT_REPOSITORY http://luajit.org/git/luajit-2.0.git
     GIT_REPOSITORY https://github.com/LuaJIT/LuaJIT.git
     GIT_SHALLOW 1
+    GIT_TAG origin/v2.1
     PATCH_COMMAND ${EXEC} git am ${CMAKE_CURRENT_SOURCE_DIR}/luajit-*.patch
     UPDATE_COMMAND ""
     CONFIGURE_COMMAND ""
