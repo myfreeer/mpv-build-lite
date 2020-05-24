@@ -8,8 +8,11 @@ sudo -E  apt-get -m -y install \
   build-essential checkinstall bison flex gettext git mercurial subversion \
   ninja-build gyp cmake yasm nasm automake pkg-config libtool \
   libtool-bin gcc-multilib g++-multilib libgmp-dev libmpfr-dev libmpc-dev \
-  libgcrypt-dev gperf ragel texinfo autopoint re2c asciidoc python-docutils \
-  rst2pdf docbook2x unzip p7zip-full curl  python3-pip
+  libgcrypt-dev gperf ragel texinfo autopoint re2c asciidoc \
+  docbook2x unzip p7zip-full curl  python3-pip
+
+# install rst2pdf and meson via pip3
+sudo pip3 install rst2pdf meson
 
 # workaround for latest nasm required by dav1d
 sudo apt-get -y remove nasm
@@ -22,9 +25,6 @@ make -j$(nproc)
 sudo make install
 cd ..
 # end nasm
-
-
-sudo pip3 install meson
 
 # workaround for git
 git config --global core.fileMode false
