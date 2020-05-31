@@ -11,8 +11,9 @@ sudo -E  apt-get -m -y install \
   libgcrypt-dev gperf ragel texinfo autopoint re2c asciidoc \
   docbook2x unzip p7zip-full curl  python3-pip
 
-# install rst2pdf and meson via pip3
-sudo pip3 install rst2pdf meson
+# install rst2pdf, mako, meson via pip3
+# mako required by libplacebo
+sudo pip3 install rst2pdf meson mako
 
 # workaround for latest nasm required by dav1d
 sudo apt-get -y remove nasm
