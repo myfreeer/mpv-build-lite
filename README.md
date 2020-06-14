@@ -62,7 +62,6 @@ Artifacts built by appveyor:
     - vulkan
     - spirv-cross
     - fribidi
-    - libressl
     - nettle
     - curl
     - libxml2
@@ -87,6 +86,7 @@ Artifacts built by appveyor:
     - libiconv (1.16)
     - gmp (6.1.2)
     - game-music-emu (0.6.2)
+    - libressl (3.1.2)
 
 
 ## Setup Build Environment
