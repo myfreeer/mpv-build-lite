@@ -84,7 +84,7 @@ Artifacts built by appveyor:
     - ogg (1.3.4)
     - lzo (2.10)
     - libiconv (1.16)
-    - gmp (6.1.2)
+    - gmp (6.2.0)
     - game-music-emu (0.6.2)
     - libressl (3.1.2)
 
