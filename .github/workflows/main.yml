@@ -16,6 +16,9 @@ on:
         default: true
         type: boolean
 
+  push:
+    branches: [ "main" ]
+
 jobs:
   build_mpv:
     name: Building mpv
