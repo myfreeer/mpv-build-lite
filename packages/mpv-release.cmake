@@ -35,8 +35,6 @@ ExternalProject_Add(mpv-release
         shaderc
         libplacebo
         spirv-cross
-        vapoursynth
-        libsdl2
     URL ${LINK}
     CONFIGURE_COMMAND ${EXEC}
         PKG_CONFIG=pkgconf
@@ -49,7 +47,6 @@ ExternalProject_Add(mpv-release
         --enable-libmpv-shared
         --enable-lua
         --enable-javascript
-        --enable-sdl2
         --enable-libarchive
         --enable-libbluray
         --enable-dvdnav
@@ -59,7 +56,6 @@ ExternalProject_Add(mpv-release
         --enable-openal
         --enable-spirv-cross
         --enable-vulkan
-        --enable-vapoursynth
         --prefix=${MINGW_INSTALL_PREFIX}
     BUILD_COMMAND ${EXEC} <SOURCE_DIR>/waf
     INSTALL_COMMAND ""

@@ -15,7 +15,6 @@ ExternalProject_Add(ffmpeg
         libpng
         libsoxr
         libbs2b
-        libvpx
         libwebp
         libzimg
         libmysofa
@@ -23,15 +22,10 @@ ExternalProject_Add(ffmpeg
         speex
         vorbis
         x264
-        x265-10bit
-        xvidcore
         libxml2
         libmfx
         libopenmpt
-        libjxl
-        aom
         dav1d
-        vapoursynth
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_SHALLOW 1
@@ -50,7 +44,6 @@ ExternalProject_Add(ffmpeg
         --enable-nonfree
         --enable-postproc
         --enable-avisynth
-        --enable-vapoursynth
         --enable-gmp
         --enable-libass
         --enable-libbluray
@@ -64,13 +57,9 @@ ExternalProject_Add(ffmpeg
         --enable-libspeex
         --enable-libvorbis
         --enable-libbs2b
-        --enable-libvpx
         --enable-libwebp
         --enable-libx264
-        --enable-libx265
-        --enable-libaom
         --enable-libdav1d
-        --enable-libxvid
         --enable-libzimg
         --enable-mbedtls
         --enable-libxml2
@@ -78,14 +67,12 @@ ExternalProject_Add(ffmpeg
         --enable-libssh
         --enable-libsrt
         --enable-libmfx
-        --enable-libjxl
         --enable-cuda
         --enable-cuvid
         --enable-nvdec
         --enable-nvenc
         --enable-amf
         --disable-doc
-        --disable-decoder=libaom_av1
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1

@@ -20,8 +20,6 @@ ExternalProject_Add(mpv
         shaderc
         libplacebo
         spirv-cross
-        vapoursynth
-        libsdl2
     GIT_REPOSITORY https://github.com/mpv-player/mpv.git
     SOURCE_DIR ${SOURCE_LOCATION}
     UPDATE_COMMAND ""
@@ -38,7 +36,6 @@ ExternalProject_Add(mpv
         -Dpdf-build=enabled
         -Dlua=enabled
         -Djavascript=enabled
-        -Dsdl2=enabled
         -Dlibarchive=enabled
         -Dlibbluray=enabled
         -Ddvdnav=enabled
@@ -48,7 +45,6 @@ ExternalProject_Add(mpv
         -Dopenal=enabled
         -Dspirv-cross=enabled
         -Dvulkan=enabled
-        -Dvapoursynth=enabled
         -Degl-angle=enabled
     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
     INSTALL_COMMAND ""

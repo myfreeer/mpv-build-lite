@@ -203,3 +203,14 @@ This will also build all packages that `mpv` depends on.
 ## Acknowledgements
 
 This project was originally created and maintained [lachs0r](https://github.com/lachs0r/mingw-w64-cmake). Since then, it heavily modified to suit my own need.
+
+## Removed
+
+* video encoders:
+    * libvpx
+    * x265
+    * aom
+    * xvidcore
+* vapoursynth
+* libjxl
+* libsdl2
