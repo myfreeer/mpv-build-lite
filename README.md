@@ -216,3 +216,4 @@ This project was originally created and maintained [lachs0r](https://github.com/
 * libwebp
 * libsdl2
 * libvorbis
+* gmp

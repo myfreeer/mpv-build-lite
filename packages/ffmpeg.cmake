@@ -4,7 +4,6 @@ ExternalProject_Add(ffmpeg
         avisynth-headers
         nvcodec-headers
         bzip2
-        gmp
         lame
         mbedtls
         libssh
@@ -42,7 +41,6 @@ ExternalProject_Add(ffmpeg
         --enable-nonfree
         --enable-postproc
         --enable-avisynth
-        --enable-gmp
         --enable-libass
         --enable-libbluray
         --enable-libfreetype
