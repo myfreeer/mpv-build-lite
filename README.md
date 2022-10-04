@@ -217,4 +217,3 @@ This project was originally created and maintained [lachs0r](https://github.com/
 * libsdl2
 * libvorbis
 * gmp
-* openal-soft
