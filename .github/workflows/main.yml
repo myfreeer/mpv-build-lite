@@ -126,6 +126,13 @@ jobs:
           hash=$(git -C src_packages/ffmpeg rev-parse --short HEAD)
           7z a -m0=lzma2 -mx=9 -ms=on release$BIT/ffmpeg-${{ env.arch }}${{ env.x86_64_level }}-git-$hash.7z ./build$BIT/install/mingw/bin/ffmpeg.exe
 
+      - name: Print lib info
+        id: print_lib_info
+        if: ${{ steps.build_toolchain.outcome == 'success' && steps.build_mpv.outcome == 'success' }}
+        continue-on-error: true
+        run: |
+          ls -alh build$BIT/install/lib build$BIT/install/lib/*
+
       - name: Collecting logs
         id: collect_logs
         run: |
