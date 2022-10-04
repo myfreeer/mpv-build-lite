@@ -10,11 +10,6 @@ on:
         description: 'Run custom command before building'
         required: false
         type: string
-      sourceforge:
-        description: 'Upload to Sourceforge'
-        required: false
-        default: true
-        type: boolean
       github_release:
         description: 'Upload to Github release'
         required: false
@@ -143,135 +138,18 @@ jobs:
           path: logs.7z
           retention-days: 1
 
+      - name: Uploading release
+        id: upload_release
+        continue-on-error: true
+        uses: actions/upload-artifact@master
+        with:
+          name: release_${{ matrix.bit }}
+          path: release${{ matrix.bit }}/*.7z
+          retention-days: 1
+
       - name: Cleaning build directory
         id: delete_build_dir
         run: |
           rm -rf build$BIT/mpv*
           if [[ $BIT == 64 || $BIT == 64-v3 ]]; then rm -rf src_packages/*; fi
           du -sh build$BIT src_packages /var/cache/pacman/pkg || true
-
-  release:
-    name: Upload releases
-    runs-on: ubuntu-latest
-    needs: build_mpv
-    env:
-      GH_TOKEN: ${{ github.token }}
-      CURL_RETRIES: "--connect-timeout 60 --retry 999 --retry-delay 5 --retry-all-errors"
-    container:
-      image: docker://alpine:latest
-
-    steps:
-      - name: Installing dependencies
-        shell: sh
-        run: |
-          apk add --update --no-cache bash git file openssh curl tar zstd jq
-          git config --global pull.rebase true
-          git config --global fetch.prune true
-          git config --global --add safe.directory $PWD
-          echo "short_date=$(date "+%Y%m%d")" >> $GITHUB_ENV
-
-      - uses: actions/checkout@main
-        with:
-          ref: master
-
-      - name: Loading release32 cache
-        uses: actions/cache@main
-        with:
-          path: release32
-          key: ${{ runner.os }}-build-${{ secrets.CACHE_VERSION }}-release32-${{ github.run_id }}
-
-      - name: Loading release64 cache
-        uses: actions/cache@main
-        with:
-          path: release64
-          key: ${{ runner.os }}-build-${{ secrets.CACHE_VERSION }}-release64-${{ github.run_id }}
-
-      - name: Loading release64 cache
-        uses: actions/cache@main
-        with:
-          path: release64-v3
-          key: ${{ runner.os }}-build-${{ secrets.CACHE_VERSION }}-release64-v3-${{ github.run_id }}
-
-      - name: Moving archives
-        run: |
-          mkdir -p release
-          mv release32/* release64/* release64-v3/* release
-          du -ah release/*
-
-      - name: Uploading packages to Sourceforge
-        id: upload_packages_sf
-        if: ${{ github.event.inputs.sourceforge == 'true' }}
-        continue-on-error: true
-        run: |
-          mkdir -p /root/.ssh/
-          echo "${{ secrets.SF_PRIVATE_KEY }}" > sf_key
-          ssh-keyscan frs.sourceforge.net > /root/.ssh/known_hosts
-          chmod 400 sf_key
-          chmod -R 700 /root
-          sftp -i sf_key shinchiro@frs.sourceforge.net:/home/frs/project/mpv-player-windows <<END
-          put release/mpv-dev*           libmpv
-          put release/mpv-i686*          32bit
-          put release/mpv-x86_64-[!v3]*  64bit
-          put release/mpv-x86_64-v3*     64bit-v3
-          END
-
-      - name: Uploading packages to Github release
-        id: upload_packages_gh
-        if: ${{ github.event.inputs.github_release == 'true' }}
-        continue-on-error: true
-        env:
-          SHORT_DATE: ${{ env.short_date }}
-        run: |
-          body=$(cat <<END
-          ![GitHub release (by tag)](https://img.shields.io/github/downloads/shinchiro/mpv-winbuild-cmake/$SHORT_DATE/total?label=Downloads)
-          END
-          )
-          id=$(curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -s -X POST -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/releases -d @- <<END | jq -r '.id'
-          {
-            "tag_name": "$SHORT_DATE",
-            "name": "$SHORT_DATE",
-            "body": "$(echo ${body//$'\n'/'\n'})"
-          }
-          END
-          )
-          for file in release/*.7z; do curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -X POST -H "Accept: application/vnd.github.v3+json" -H "Content-Type: $(file -b --mime-type $file)" https://uploads.github.com/repos/shinchiro/mpv-winbuild-cmake/releases/$id/assets?name=$(basename $file) --data-binary @$file; done
-
-      - name: Pruning tags
-        id: prune_tags
-        continue-on-error: true
-        run: |
-          # Keep latest 30 tags/releases
-          git fetch --tags
-          tag_list=($(git tag | sort -r))
-          old=${tag_list[@]:30}
-          for tag in ${old[@]}; do
-            id=$(curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -s -X GET -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/releases/tags/$tag | jq -r '.id')
-            curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -s -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/releases/$id
-            git tag -d $tag
-          done
-          git push --tags --prune https://shinchiro:$GH_TOKEN@github.com/shinchiro/mpv-winbuild-cmake
-
-  gist:
-    name: Gist
-    runs-on: ubuntu-latest
-    needs: build_mpv
-    if: ${{ always() }}
-    env:
-      GH_TOKEN: ${{ secrets.GIST_TOKEN }}
-      RUN_ID: ${{ github.run_id }}
-    steps:
-      - name: Setup git credentials
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Upload job logs to gist
-        id: upload_job_log
-        run: |
-          url=$(curl -su shinchiro:$GH_TOKEN -X GET -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/actions/runs/$RUN_ID/jobs | jq -r '.jobs[0] | .url')
-          curl -sLu shinchiro:$GH_TOKEN -X GET -H "Accept: application/vnd.github.v3+json" $url/logs -o mpv_log
-          git clone --depth 1 https://shinchiro:$GH_TOKEN@gist.github.com/90308c6632c9010d03b325c9ca6a4b6f job_log
-          cp -f mpv_log job_log/mpv_log
-          git -C job_log add .
-          git -C job_log commit --amend --no-edit
-          git -C job_log push -f https://shinchiro:$GH_TOKEN@gist.github.com/90308c6632c9010d03b325c9ca6a4b6f
