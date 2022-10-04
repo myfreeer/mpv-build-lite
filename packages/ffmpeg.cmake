@@ -19,7 +19,6 @@ ExternalProject_Add(ffmpeg
         libmysofa
         opus
         speex
-        vorbis
         x264
         libxml2
         libmfx
@@ -54,7 +53,6 @@ ExternalProject_Add(ffmpeg
         --enable-libopus
         --enable-libsoxr
         --enable-libspeex
-        --enable-libvorbis
         --enable-libbs2b
         --enable-libx264
         --enable-libdav1d
@@ -71,6 +69,10 @@ ExternalProject_Add(ffmpeg
         --enable-nvenc
         --enable-amf
         --disable-doc
+        --disable-ffplay
+        --disable-ffprobe
+        --disable-encoder=opus
+        --disable-encoder=libspeex
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1

@@ -215,3 +215,4 @@ This project was originally created and maintained [lachs0r](https://github.com/
 * libjxl
 * libwebp
 * libsdl2
+* libvorbis
