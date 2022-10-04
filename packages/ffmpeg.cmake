@@ -15,7 +15,6 @@ ExternalProject_Add(ffmpeg
         libpng
         libsoxr
         libbs2b
-        libwebp
         libzimg
         libmysofa
         opus
@@ -57,7 +56,6 @@ ExternalProject_Add(ffmpeg
         --enable-libspeex
         --enable-libvorbis
         --enable-libbs2b
-        --enable-libwebp
         --enable-libx264
         --enable-libdav1d
         --enable-libzimg

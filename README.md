@@ -213,4 +213,5 @@ This project was originally created and maintained [lachs0r](https://github.com/
     * xvidcore
 * vapoursynth
 * libjxl
+* libwebp
 * libsdl2
