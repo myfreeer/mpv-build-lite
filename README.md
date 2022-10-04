@@ -218,3 +218,4 @@ This project was originally created and maintained [lachs0r](https://github.com/
 * libvorbis
 * gmp
 * openal-soft
+* libmodplug
