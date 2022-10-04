@@ -138,8 +138,8 @@ jobs:
           path: logs.7z
           retention-days: 1
 
-      - name: Uploading release
-        id: upload_release
+      - name: Uploading artifact
+        id: upload_artifact
         continue-on-error: true
         uses: actions/upload-artifact@master
         with:
