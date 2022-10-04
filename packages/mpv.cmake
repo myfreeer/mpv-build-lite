@@ -46,7 +46,6 @@ ExternalProject_Add(mpv
         -Dspirv-cross=enabled
         -Dvulkan=enabled
         -Degl-angle=enabled
-        -Ddemos=false
     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
     INSTALL_COMMAND ""
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
