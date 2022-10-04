@@ -93,6 +93,7 @@ jobs:
 
       - name: Downloading source
         run: |
+          cmake --version
           cmake -DTARGET_ARCH=${{ env.arch }}-w64-mingw32 ${{ env.gcc_arch }} -DALWAYS_REMOVE_BUILDFILES=ON -DSINGLE_SOURCE_LOCATION=$PWD/src_packages -G Ninja -Bbuild$BIT -H.
           ninja -C build$BIT download || true
 
