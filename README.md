@@ -221,3 +221,4 @@ This project was originally created and maintained [lachs0r](https://github.com/
 * mbedtls
 * libssh
 * libsrt
+* nettle

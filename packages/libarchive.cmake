@@ -5,7 +5,6 @@ ExternalProject_Add(libarchive
         lzo
         xz
         zlib
-        nettle
     GIT_REPOSITORY https://github.com/libarchive/libarchive.git
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_SHALLOW 1
@@ -19,7 +18,7 @@ ExternalProject_Add(libarchive
         --disable-bsdcpio
         --with-lzo2
         --without-xml2
-        --without-cng
+        --without-nettle
         --without-openssl
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
