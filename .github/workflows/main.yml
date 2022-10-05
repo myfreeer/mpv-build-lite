@@ -16,9 +16,6 @@ on:
         default: true
         type: boolean
 
-  push:
-    branches: [ "main" ]
-
 jobs:
   build_mpv:
     name: Building mpv
@@ -163,3 +160,60 @@ jobs:
           rm -rf build$BIT/mpv*
           if [[ $BIT == 64 || $BIT == 64-v3 ]]; then rm -rf src_packages/*; fi
           du -sh build$BIT src_packages /var/cache/pacman/pkg || true
+
+  release:
+    name: Upload releases
+    runs-on: ubuntu-latest
+    needs: build_mpv
+    env:
+      GH_TOKEN: ${{ github.token }}
+      CURL_RETRIES: "--connect-timeout 60 --retry 999 --retry-delay 5 --retry-all-errors"
+    container:
+      image: docker://alpine:latest
+
+    steps:
+      - name: Installing dependencies
+        shell: sh
+        run: |
+          apk add --update --no-cache bash git file openssh curl tar zstd jq
+          git config --global pull.rebase true
+          git config --global fetch.prune true
+          git config --global --add safe.directory $PWD
+          echo "short_date=$(date "+%Y%m%d")" >> $GITHUB_ENV
+      - uses: actions/checkout@main
+        with:
+          ref: master
+
+      - name: Loading release32 cache
+        uses: actions/cache@main
+        with:
+          path: release32
+          key: ${{ runner.os }}-build-${{ secrets.CACHE_VERSION }}-release32-${{ github.run_id }}
+
+      - name: Loading release64 cache
+        uses: actions/cache@main
+        with:
+          path: release64
+          key: ${{ runner.os }}-build-${{ secrets.CACHE_VERSION }}-release64-${{ github.run_id }}
+
+      - name: Loading release64 cache
+        uses: actions/cache@main
+        with:
+          path: release64-v3
+          key: ${{ runner.os }}-build-${{ secrets.CACHE_VERSION }}-release64-v3-${{ github.run_id }}
+
+      - name: Moving archives
+        run: |
+          mkdir -p release
+          mv release32/* release64/* release64-v3/* release
+          du -ah release/*
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: ${{ github.event.inputs.github_release == 'true' }}
+        continue-on-error: true
+        with:
+          prerelease: true
+          tag_name: ${{ env.short_date }}
+          fail_on_unmatched_files: true
+          files: release/*
