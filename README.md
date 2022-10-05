@@ -222,3 +222,4 @@ This project was originally created and maintained [lachs0r](https://github.com/
 * libssh
 * libsrt
 * nettle
+* fontconfig
