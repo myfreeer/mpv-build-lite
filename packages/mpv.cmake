@@ -29,6 +29,8 @@ ExternalProject_Add(mpv
         --buildtype=release
         --default-library=shared
         --prefer-static
+        -Dc_link_args=-Wl,--gc-sections
+        -Dcpp_link_args=-Wl,--gc-sections
         -Db_lto=true
         -Db_ndebug=true
         -Dlibmpv=true
