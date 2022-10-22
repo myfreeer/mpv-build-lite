@@ -1,13 +1,7 @@
-ExternalProject_Add(libwebp
-    DEPENDS
-        zlib
-        libpng
-        libjpeg
-    GIT_REPOSITORY https://chromium.googlesource.com/webm/libwebp.git
+ExternalProject_Add(uavs3d
+    GIT_REPOSITORY https://github.com/uavs3/uavs3d.git
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_SHALLOW 1
-    GIT_REMOTE_NAME origin
-    GIT_TAG main
     UPDATE_COMMAND ""
     CONFIGURE_COMMAND ${EXEC} cmake -H<SOURCE_DIR> -B<BINARY_DIR>
         -G Ninja
@@ -15,10 +9,11 @@ ExternalProject_Add(libwebp
         -DCMAKE_INSTALL_PREFIX=${MINGW_INSTALL_PREFIX}
         -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE}
         -DBUILD_SHARED_LIBS=OFF
+        -DCOMPILE_10BIT=ON
     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
     INSTALL_COMMAND ${EXEC} ninja -C <BINARY_DIR> install
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
 
-force_rebuild_git(libwebp)
-cleanup(libwebp install)
+force_rebuild_git(uavs3d)
+cleanup(uavs3d install)
