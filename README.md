@@ -225,3 +225,5 @@ This project was originally created and maintained [lachs0r](https://github.com/
 * libsrt
 * nettle
 * fontconfig
+* uavs3d
+* davs2
