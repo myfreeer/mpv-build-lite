@@ -17,7 +17,7 @@ ExternalProject_Add(ffmpeg
         speex
         x264
         libxml2
-        libmfx
+        libvpl
         libopenmpt
         dav1d
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
@@ -58,7 +58,7 @@ ExternalProject_Add(ffmpeg
         --enable-libmysofa
         --disable-libssh
         --disable-libsrt
-        --enable-libmfx
+        --enable-libvpl
         --enable-cuda
         --enable-cuvid
         --enable-nvdec

@@ -15,6 +15,11 @@ on:
         required: false
         default: true
         type: boolean
+      mpv_tarball:
+        description: 'Build latest mpv tarball'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   build_mpv:
@@ -27,11 +32,14 @@ jobs:
       BIT: ${{ matrix.bit }}
     container:
       image: docker://ghcr.io/shinchiro/archlinux:latest
-
+    outputs:
+      short_date: ${{ steps.init_var.outputs.short_date }}
+      mpv_ver: ${{ steps.build_mpv.outputs.mpv_ver }}
     steps:
-      - name: Get current date and random hash
+      - name: Init variable
+        id: init_var
         run: |
-          echo "short_date=$(date "+%Y%m%d")" >> $GITHUB_ENV
+          echo "short_date=$(date "+%Y%m%d")" >> $GITHUB_OUTPUT
           echo "random_hash=$(echo $RANDOM | md5sum | head -c 20)" >> $GITHUB_ENV
           if [[ $BIT == 32 ]]; then
             echo "arch=i686" >> $GITHUB_ENV
@@ -102,14 +110,18 @@ jobs:
 
       - name: Building mpv
         id: build_mpv
-        if: ${{ steps.build_toolchain.outcome == 'success' }}
+        if: ${{ github.event.inputs.mpv_tarball == 'false' && steps.build_toolchain.outcome == 'success' }}
         continue-on-error: true
+        env:
+          MPV_TARBALL: ${{ github.event.inputs.mpv_tarball }}
         run: |
-          ninja -C build$BIT update; ninja -C build$BIT mpv
+          ninja -C build$BIT update
+          $MPV_TARBALL && ninja -C build$BIT mpv-release || ninja -C build$BIT mpv
+          $MPV_TARBALL && echo "mpv_ver=$(cat $PWD/src_packages/mpv-release/VERSION)" >> $GITHUB_OUTPUT || echo "mpv_ver=UNKNOWN" >> $GITHUB_OUTPUT
 
       - name: Packaging mpv
         id: packaging_mpv
-        if: ${{ steps.build_toolchain.outcome == 'success' && steps.build_mpv.outcome == 'success' }}
+        if: ${{ steps.build_toolchain.outcome == 'success' && (steps.build_mpv.outcome == 'success') }}
         continue-on-error: true
         run: |
           mkdir -p release$BIT
@@ -179,7 +191,7 @@ jobs:
           git config --global pull.rebase true
           git config --global fetch.prune true
           git config --global --add safe.directory $PWD
-          echo "short_date=$(date "+%Y%m%d")" >> $GITHUB_ENV
+
       - uses: actions/checkout@main
         with:
           ref: master
@@ -196,7 +208,7 @@ jobs:
           path: release64
           key: ${{ runner.os }}-build-${{ secrets.CACHE_VERSION }}-release64-${{ github.run_id }}
 
-      - name: Loading release64 cache
+      - name: Loading release64-v3 cache
         uses: actions/cache@main
         with:
           path: release64-v3
