@@ -29,7 +29,6 @@ ExternalProject_Add(mpv-release
         luajit
         rubberband
         uchardet
-        openal-soft
         mujs
         vulkan
         shaderc
@@ -44,6 +43,8 @@ ExternalProject_Add(mpv-release
         --buildtype=release
         --default-library=shared
         --prefer-static
+        -Dc_link_args=-Wl,--gc-sections
+        -Dcpp_link_args=-Wl,--gc-sections
         -Db_lto=true
         -Db_ndebug=true
         -Dlibmpv=true
@@ -57,10 +58,9 @@ ExternalProject_Add(mpv-release
         -Duchardet=enabled
         -Drubberband=enabled
         -Dlcms2=enabled
-        -Dopenal=enabled
+        -Dopenal=disabled
         -Dspirv-cross=enabled
         -Dvulkan=enabled
-        -Dvapoursynth=enabled
         -Degl-angle=enabled
     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
     INSTALL_COMMAND ""
