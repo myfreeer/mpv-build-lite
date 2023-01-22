@@ -226,6 +226,6 @@ jobs:
         continue-on-error: true
         with:
           prerelease: true
-          tag_name: ${{ env.short_date }}
+          tag_name: ${{ needs.build_mpv.outputs.short_date }}
           fail_on_unmatched_files: true
           files: release/*
