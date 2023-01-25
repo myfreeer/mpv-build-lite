@@ -170,8 +170,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build_mpv
     env:
-      GH_TOKEN: ${{ github.token }}
-      CURL_RETRIES: "--connect-timeout 60 --retry 999 --retry-delay 5 --retry-all-errors"
       release32_key: ${{ secrets.CACHE_VERSION }}-release32-${{ github.run_id }}
       release64_key: ${{ secrets.CACHE_VERSION }}-release64-${{ github.run_id }}
       release64_v3_key: ${{ secrets.CACHE_VERSION }}-release64-v3-${{ github.run_id }}
@@ -214,6 +212,7 @@ jobs:
           mkdir -p release
           mv release32/* release64/* release64-v3/* release
           du -ah release/*
+          echo "short_date=$(date "+%Y%m%d")" >> $GITHUB_ENV
 
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -221,6 +220,6 @@ jobs:
         continue-on-error: true
         with:
           prerelease: true
-          tag_name: ${{ needs.build_mpv.outputs.mpv_ver }}
+          tag_name: ${{ needs.build_mpv.outputs.mpv_ver }}-${{ env.short_date }}
           fail_on_unmatched_files: true
           files: release/*
