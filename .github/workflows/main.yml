@@ -147,14 +147,14 @@ jobs:
 
       - name: Saving build${{ matrix.bit }} cache
         uses: actions/cache/save@main
-        if: always()
+        if: ${{ success() }}
         with:
           path: build${{ matrix.bit }}
           key: ${{ secrets.CACHE_VERSION }}-build${{ matrix.bit }}-${{ github.run_id }}
 
       - name: Saving repository cache
         uses: actions/cache/save@main
-        if: ${{ always() && matrix.bit == '32' }}
+        if: ${{ success() && matrix.bit == '32' }}
         with:
           path: src_packages
           key: ${{ secrets.CACHE_VERSION }}-repository-${{ github.run_id }}
