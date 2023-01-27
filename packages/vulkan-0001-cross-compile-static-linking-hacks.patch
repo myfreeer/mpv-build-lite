@@ -1,4 +1,4 @@
-From f47d73a1f7ef4a79e6f7fa27a42a5ee5ef4dd55f Mon Sep 17 00:00:00 2001
+From 5df0a81c829eff5475e37b45b1c5fc5131e4d454 Mon Sep 17 00:00:00 2001
 From: shinchiro <shinchiro@users.noreply.github.com>
 Date: Sat, 5 Nov 2022 02:18:00 +0000
 Subject: [PATCH] loader: cross-compile & static linking hacks
@@ -165,5 +165,5 @@ index 44120f2c2..468c3a532 100644
      assert(func != NULL);
      assert(ctl != NULL);
 -- 
-2.30.2
+2.38.1
 
