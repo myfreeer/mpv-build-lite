@@ -67,6 +67,7 @@ ExternalProject_Add(ffmpeg
         --enable-nvenc
         --enable-amf
         --disable-doc
+        --disable-vaapi
         --disable-ffplay
         --disable-ffprobe
         --disable-encoder=opus
