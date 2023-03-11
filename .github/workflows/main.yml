@@ -111,6 +111,7 @@ jobs:
       - name: Packaging mpv
         run: |
           mkdir -p release$BIT
+          7z a -m0=lzma2 -mx=9 -ms=on release$BIT/mpv-debug-${{ env.arch }}${{ env.x86_64_level }}.7z build$BIT/mpv-debug*
           rm -rf build$BIT/mpv-debug*; ninja -C build$BIT mpv-packaging; mv build$BIT/mpv*.7z release$BIT
 
       - name: Copying ffmpeg
