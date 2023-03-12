@@ -3,6 +3,7 @@ ExternalProject_Add(ffmpeg
         amf-headers
         avisynth-headers
         nvcodec-headers
+        libva
         bzip2
         gmp
         lame
@@ -68,6 +69,8 @@ ExternalProject_Add(ffmpeg
         --enable-amf
         --disable-doc
         --disable-vaapi
+        --disable-vdpau
+        --disable-videotoolbox
         --disable-ffplay
         --disable-ffprobe
         --disable-encoder=opus
