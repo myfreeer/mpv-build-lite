@@ -131,14 +131,15 @@ jobs:
           mkdir -p build${BIT}_logs
           cp -fr $(find build$BIT -type f -iname "*-*.log" -or -wholename "*/ffbuild/config.log") build${BIT}_logs || true
           7z a -m0=lzma2 -mx=9 -ms=on logs.7z build*logs
+          7z a -m0=lzma2 -mx=9 -ms=on -r logs2.7z *.log *.cmake *.ninja *.txt
 
       - name: Uploading logs
         uses: actions/upload-artifact@master
         if: always()
         with:
           name: logs_${{ matrix.bit }}
-          path: logs.7z
-          retention-days: 1
+          path: logs*.7z
+          retention-days: 60
 
       - name: Uploading artifact
         id: upload_artifact
@@ -147,7 +148,7 @@ jobs:
         with:
           name: release_${{ matrix.bit }}
           path: release${{ matrix.bit }}/*.7z
-          retention-days: 1
+          retention-days: 30
 
       - name: Cleaning build directory
         if: always()
