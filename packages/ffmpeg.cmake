@@ -18,7 +18,6 @@ ExternalProject_Add(ffmpeg
         x264
         libxml2
         libvpl
-        libopenmpt
         libplacebo
         dav1d
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
@@ -44,7 +43,6 @@ ExternalProject_Add(ffmpeg
         --enable-libbluray
         --enable-libfreetype
         --enable-libfribidi
-        --enable-libopenmpt
         --enable-libmp3lame
         --enable-libopus
         --enable-libsoxr

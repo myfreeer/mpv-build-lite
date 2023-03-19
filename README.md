@@ -229,3 +229,4 @@ This project was originally created and maintained [lachs0r](https://github.com/
 * fontconfig
 * uavs3d
 * davs2
+* libopenmpt
