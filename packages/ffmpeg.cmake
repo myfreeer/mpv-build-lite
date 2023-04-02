@@ -18,7 +18,10 @@ ExternalProject_Add(ffmpeg
         x264
         libxml2
         libvpl
+        shaderc
         libplacebo
+        libzvbi
+        libaribcaption
         dav1d
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
     SOURCE_DIR ${SOURCE_LOCATION}
@@ -59,6 +62,9 @@ ExternalProject_Add(ffmpeg
         --disable-libsrt
         --enable-libvpl
         --enable-libplacebo
+        --enable-libshaderc
+        --enable-libzvbi
+        --enable-libaribcaption
         --enable-cuda
         --enable-cuvid
         --enable-nvdec

@@ -81,6 +81,9 @@ Alternatively, you can download the builds from [here](https://sourceforge.net/p
     - libsixel
     - libdovi
     - libva
+    - libzvbi
+    - rav1e
+    - libaribcaption
 
 - Zip
     - expat (2.5.0)
@@ -94,7 +97,7 @@ Alternatively, you can download the builds from [here](https://sourceforge.net/p
     - libopenmpt (0.6.7)
     - libiconv (1.17)
     - gmp (6.2.1)
-    - vapoursynth (R61)
+    - vapoursynth (R62)
     - libsdl2 (2.26.2)
     - mbedtls (3.3.0)
     - ~~libressl (3.1.5)~~

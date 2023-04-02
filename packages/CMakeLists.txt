@@ -73,8 +73,11 @@ list(APPEND ep
     shaderc
     glad
     libdovi
+    rav1e
     libplacebo
     libva
+    libzvbi
+    libaribcaption
     libsixel
     ffmpeg
     mpv
@@ -122,4 +125,11 @@ add_custom_target(update
 
 add_custom_target(download
     COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target ${download}
+)
+
+add_custom_target(cargo-clean
+    COMMAND ${EXEC} cargo install --git https://github.com/matthiaskrgr/cargo-cache.git --no-default-features --features ci-autoclean cargo-cache
+    COMMAND ${EXEC} cargo-cache
+    COMMAND du -sh ${RUSTUP_LOCATION}
+    USES_TERMINAL
 )
