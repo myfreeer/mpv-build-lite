@@ -80,24 +80,30 @@ endfunction()
 
 function(force_rebuild_git _name)
     get_property(git_tag TARGET ${_name} PROPERTY _EP_GIT_TAG)
+    get_property(git_reset TARGET ${_name} PROPERTY _EP_GIT_RESET)
     get_property(git_remote_name TARGET ${_name} PROPERTY _EP_GIT_REMOTE_NAME)
     get_property(stamp_dir TARGET ${_name} PROPERTY _EP_STAMP_DIR)
     get_property(source_dir TARGET ${_name} PROPERTY _EP_SOURCE_DIR)
 
     if("${git_remote_name}" STREQUAL "" AND NOT "${git_tag}" STREQUAL "")
         # GIT_REMOTE_NAME is not set when commit hash is specified
-        set(git_tag "")
+        set(reset "")
+    elseif(NOT "${git_reset}" STREQUAL "")
+        set(reset "${git_reset}")
     else()
-        set(git_tag "@{u}")
+        set(reset "@{u}") # eg: origin/master
     endif()
 
 file(WRITE ${stamp_dir}/reset_head.sh
 "#!/bin/bash
 git fetch --filter=tree:0
-if [[ ! -f \"${stamp_dir}/${_name}-patch\" || \"${stamp_dir}/${_name}-download\" -nt \"${stamp_dir}/${_name}-patch\" || ! -f \"${stamp_dir}/HEAD\" || \"$(cat ${stamp_dir}/HEAD)\" != \"$(git rev-parse ${git_tag})\" ]]; then
-    git reset --hard ${git_tag} -q
-    find \"${stamp_dir}\" -type f  ! -iname '*.cmake' -size 0c -delete
-    echo \"Removing ${_name} stamp files.\"
+if [[ ! -f \"${stamp_dir}/${_name}-patch\"  || ! -f \"${stamp_dir}/HEAD\" || \"$(cat ${stamp_dir}/HEAD)\" != \"$(git rev-parse @{u})\" ]]; then
+    if [[ -z \"${git_reset}\" ]]; then
+        git reset --hard ${reset} -q
+        find \"${stamp_dir}\" -type f  ! -iname '*.cmake' -size 0c -delete
+        echo \"Removing ${_name} stamp files.\"
+        git rev-parse HEAD > ${stamp_dir}/HEAD
+    fi
 else
     git reset --hard -q
 fi")
