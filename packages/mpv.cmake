@@ -59,7 +59,7 @@ ExternalProject_Add_Step(mpv strip-binary
     COMMAND ${EXEC} ${TARGET_ARCH}-objcopy --only-keep-debug <BINARY_DIR>/mpv.exe <BINARY_DIR>/mpv.debug
     COMMAND ${EXEC} ${TARGET_ARCH}-strip -s <BINARY_DIR>/mpv.exe
     COMMAND ${EXEC} ${TARGET_ARCH}-objcopy --add-gnu-debuglink=<BINARY_DIR>/mpv.debug <BINARY_DIR>/mpv.exe
-    COMMAND ${EXEC} ${TARGET_ARCH}-strip -s <BINARY_DIR>/generated/mpv.com
+    COMMAND ${EXEC} ${TARGET_ARCH}-strip -s <BINARY_DIR>/player/mpv.com
     COMMAND ${EXEC} ${TARGET_ARCH}-strip -s <BINARY_DIR>/libmpv-2.dll
     COMMENT "Stripping mpv binaries"
 )
@@ -67,7 +67,7 @@ ExternalProject_Add_Step(mpv strip-binary
 ExternalProject_Add_Step(mpv copy-binary
     DEPENDEES strip-binary
     COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/mpv.exe                           ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/mpv.exe
-    COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/generated/mpv.com                 ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/mpv.com
+    COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/player/mpv.com                    ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/mpv.com
     COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/mpv.pdf                           ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/doc/manual.pdf
     COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/mpv.debug                         ${CMAKE_CURRENT_BINARY_DIR}/mpv-debug/mpv.debug
     COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/generated/version.h               ${MINGW_INSTALL_PREFIX}/mpv-version.h
