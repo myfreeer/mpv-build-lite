@@ -25,6 +25,7 @@ ExternalProject_Add(ffmpeg
         libzvbi
         libaribcaption
         dav1d
+        rubberband
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_CLONE_FLAGS "--filter=tree:0"
@@ -34,10 +35,10 @@ ExternalProject_Add(ffmpeg
         --prefix=${MINGW_INSTALL_PREFIX}
         --arch=${TARGET_CPU}
         --target-os=mingw32
-        --target-exec=wine
         --pkg-config-flags=--static
         --enable-cross-compile
         --enable-runtime-cpudetect
+        ${ffmpeg_hardcoded_tables}
         --enable-gpl
         --enable-version3
         --enable-nonfree
@@ -55,6 +56,7 @@ ExternalProject_Add(ffmpeg
         --enable-libsoxr
         --enable-libspeex
         --enable-libbs2b
+        --enable-librubberband
         --enable-libx264
         --enable-libdav1d
         --enable-libzimg
@@ -69,7 +71,7 @@ ExternalProject_Add(ffmpeg
         --enable-libshaderc
         --enable-libzvbi
         --enable-libaribcaption
-        --enable-cuda
+        --enable-cuda-llvm
         --enable-cuvid
         --enable-nvdec
         --enable-nvenc
@@ -82,7 +84,8 @@ ExternalProject_Add(ffmpeg
         --disable-ffprobe
         --disable-encoder=opus
         --disable-encoder=libspeex
-        "--extra-libs='-lsecurity -lschannel -lstdc++'" # needs by libjxl and shaderc
+        --extra-cflags='-Wno-error=int-conversion'
+        "--extra-libs='${ffmpeg_extra_libs}'" # -lstdc++ / -lc++ needs by libjxl and shaderc
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1

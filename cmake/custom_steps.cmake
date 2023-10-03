@@ -4,6 +4,7 @@ function(cleanup _name _last_step)
     get_property(_url TARGET ${_name} PROPERTY _EP_URL)
     get_property(git_tag TARGET ${_name} PROPERTY _EP_GIT_TAG)
     get_property(git_remote_name TARGET ${_name} PROPERTY _EP_GIT_REMOTE_NAME)
+    get_property(stamp_dir TARGET ${_name} PROPERTY _EP_STAMP_DIR)
     get_property(source_dir TARGET ${_name} PROPERTY _EP_SOURCE_DIR)
 
     if("${git_remote_name}" STREQUAL "" AND NOT "${git_tag}" STREQUAL "")
@@ -20,10 +21,8 @@ function(cleanup _name _last_step)
             set(remove_cmd "rm -rf <BINARY_DIR>/* && git -C <SOURCE_DIR> clean -df")
         endif()
         set(COMMAND_FORCE_UPDATE COMMAND bash -c "git -C <SOURCE_DIR> am --abort 2> /dev/null || true"
+                                 COMMAND ${stamp_dir}/reset_head.sh
                                  COMMAND bash -c "git -C <SOURCE_DIR> restore .")
-    elseif(_url)
-        set(remove_cmd "rm -rf <SOURCE_DIR>/* <BINARY_DIR>/*")
-        set(COMMAND_FORCE_UPDATE "")
     endif()
 
     # <STAMP_DIR> doesn't resolve into full path, so <LOG_DIR> is used instead since its same folder.
@@ -51,6 +50,7 @@ function(cleanup _name _last_step)
         ExternalProject_Add_Step(${_name} postremovebuild
             DEPENDEES ${_last_step}
             COMMAND ${EXEC} ${remove_cmd}
+            ${COMMAND_FORCE_UPDATE}
             LOG 1
             COMMENT "Deleting build directory of ${_name} package after install"
         )
@@ -96,17 +96,19 @@ function(force_rebuild_git _name)
 
 file(WRITE ${stamp_dir}/reset_head.sh
 "#!/bin/bash
-git fetch --filter=tree:0
-if [[ ! -f \"${stamp_dir}/${_name}-patch\"  || \"${stamp_dir}/${_name}-download\" -nt \"${stamp_dir}/${_name}-patch\" || ! -f \"${stamp_dir}/HEAD\" || \"$(cat ${stamp_dir}/HEAD)\" != \"$(git rev-parse @{u})\" ]]; then
-    git reset --hard ${reset} -q
+set -e
+if [[ ! -f \"${stamp_dir}/${_name}-patch\"  || \"${stamp_dir}/${_name}-download\" -nt \"${stamp_dir}/${_name}-patch\" || ! -f \"${stamp_dir}/HEAD\" || \"$(cat ${stamp_dir}/HEAD)\" != \"$(git -C ${source_dir} rev-parse @{u})\" ]]; then
+    git -C ${source_dir} reset --hard ${reset} -q
     if [[ -z \"${git_reset}\" ]]; then
         find \"${stamp_dir}\" -type f  ! -iname '*.cmake' -size 0c -delete
         echo \"Removing ${_name} stamp files.\"
-        git rev-parse HEAD > ${stamp_dir}/HEAD
+        git -C ${source_dir} rev-parse HEAD > ${stamp_dir}/HEAD
     fi
 else
-    git reset --hard -q
+    git -C ${source_dir} reset --hard -q
 fi")
+file(CHMOD ${stamp_dir}/reset_head.sh 
+PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 
     ExternalProject_Add_Step(${_name} force-update
         ALWAYS TRUE
@@ -114,7 +116,8 @@ fi")
         INDEPENDENT TRUE
         WORKING_DIRECTORY <SOURCE_DIR>
         COMMAND bash -c "git am --abort 2> /dev/null || true"
-        COMMAND chmod 755 ${stamp_dir}/reset_head.sh && ${stamp_dir}/reset_head.sh
+        COMMAND bash -c "git fetch --filter=tree:0"
+        COMMAND ${stamp_dir}/reset_head.sh
     )
     ExternalProject_Add_StepTargets(${_name} force-update)
 
@@ -161,26 +164,6 @@ function(force_rebuild_hg _name)
         DEPENDERS patch build install
         COMMAND hg --config "extensions.purge=" purge --all
         COMMAND hg update -C
-        WORKING_DIRECTORY <SOURCE_DIR>
-        LOG 1
-    )
-endfunction()
-
-function(autogen _name)
-    ExternalProject_Add_Step(${_name} autogen
-        DEPENDEES download update patch
-        DEPENDERS configure
-        COMMAND ${EXEC} ./autogen.sh -V
-        WORKING_DIRECTORY <SOURCE_DIR>
-        LOG 1
-    )
-endfunction()
-
-function(autoreconf _name)
-    ExternalProject_Add_Step(${_name} autoreconf
-        DEPENDEES download update patch
-        DEPENDERS configure
-        COMMAND ${EXEC} autoreconf -fi
         WORKING_DIRECTORY <SOURCE_DIR>
         LOG 1
     )

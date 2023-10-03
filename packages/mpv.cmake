@@ -33,6 +33,7 @@ ExternalProject_Add(mpv
         -Dc_link_args=-Wl,--gc-sections
         -Dcpp_link_args=-Wl,--gc-sections
         -Db_lto=true
+        ${mpv_lto_mode}
         -Db_ndebug=true
         -Dlibmpv=true
         -Dpdf-build=enabled
@@ -69,6 +70,8 @@ ExternalProject_Add_Step(mpv copy-binary
     COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/mpv.exe                           ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/mpv.exe
     COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/player/mpv.com                    ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/mpv.com
     COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/mpv.pdf                           ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/doc/manual.pdf
+    COMMAND ${CMAKE_COMMAND} -E copy ${MINGW_INSTALL_PREFIX}/etc/fonts/fonts.conf   ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/mpv/fonts.conf
+    ${mpv_copy_debug}
     COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/mpv.debug                         ${CMAKE_CURRENT_BINARY_DIR}/mpv-debug/mpv.debug
     COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/common/version.h                  ${MINGW_INSTALL_PREFIX}/mpv-version.h
 
