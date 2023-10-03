@@ -63,8 +63,6 @@ jobs:
           git config --global --add safe.directory $PWD
 
       - uses: actions/checkout@main
-        with:
-          ref: master
 
       - name: Loading clang sysroot cache
         uses: actions/cache/restore@main

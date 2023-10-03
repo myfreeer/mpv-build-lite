@@ -58,8 +58,6 @@ jobs:
           git config --global --add safe.directory $PWD
 
       - uses: actions/checkout@main
-        with:
-          ref: main
 
       - name: Loading ${{ matrix.bit }} toolchain cache
         uses: actions/cache/restore@main
@@ -124,7 +122,7 @@ jobs:
         id: print_dir_info
         continue-on-error: true
         run: |
-          ls -alh build$BIT/install build$BIT/install/*/ build$BIT/install/lib/*/ build$BIT/install/mingw/lib build$BIT/install/mingw/lib/*/
+          ls -alh build_$BIT/install build_$BIT/install/*/ build_$BIT/install/lib/*/ build_$BIT/install/mingw/lib build_$BIT/install/mingw/lib/*/
 
       - name: Collecting logs
         if: always()
@@ -132,7 +130,7 @@ jobs:
           mkdir -p build_${BIT}_logs
           cp -fr $(find build_$BIT -type f -iname "*-*.log" -or -wholename "*/ffbuild/config.log") build_${BIT}_logs || true
           7z a -m0=lzma2 -mx=9 -ms=on logs.7z build*logs
-          7z a -m0=lzma2 -mx=9 -ms=on -r logs2.7z *.log *.cmake *.ninja *.txt
+          7z a -m0=lzma2 -mx=9 -ms=on -r logs2.7z *.log *.cmake *.ninja *.txt configure *.m4 *.sh
 
       - name: Uploading logs
         uses: actions/upload-artifact@master
@@ -140,7 +138,6 @@ jobs:
         with:
           name: logs_${{ matrix.bit }}
           path: logs*.7z
-          retention-days: 60
 
       - name: Uploading artifact
         id: upload_artifact
@@ -183,7 +180,6 @@ jobs:
 
       - name: Saving release_${{ matrix.bit }} cache
         uses: actions/cache/save@main
-        if: false
         with:
           path: release_${{ matrix.bit }}
           key: ${{ secrets.CACHE_VERSION }}-release_${{ matrix.bit }}-${{ github.run_id }}
@@ -195,7 +191,6 @@ jobs:
     if: false
     env:
       GH_TOKEN: ${{ github.token }}
-      CURL_RETRIES: "--connect-timeout 60 --retry 999 --retry-delay 5 --retry-all-errors"
       release_i686_key: ${{ secrets.CACHE_VERSION }}-release_i686-${{ github.run_id }}
       release_x86_64_key: ${{ secrets.CACHE_VERSION }}-release_x86_64-${{ github.run_id }}
       release_x86_64_v3_key: ${{ secrets.CACHE_VERSION }}-release_x86_64_v3-${{ github.run_id }}
