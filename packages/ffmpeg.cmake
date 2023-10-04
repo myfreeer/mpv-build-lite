@@ -38,7 +38,6 @@ ExternalProject_Add(ffmpeg
         --pkg-config-flags=--static
         --enable-cross-compile
         --enable-runtime-cpudetect
-        ${ffmpeg_hardcoded_tables}
         --enable-gpl
         --enable-version3
         --enable-nonfree
