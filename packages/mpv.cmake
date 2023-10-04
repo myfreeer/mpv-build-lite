@@ -30,6 +30,7 @@ ExternalProject_Add(mpv
         --buildtype=release
         --default-library=shared
         --prefer-static
+        -Dc_args='-ffunction-sections -fdata-sections'
         -Dc_link_args=-Wl,--gc-sections
         -Dcpp_link_args=-Wl,--gc-sections
         -Db_lto=true
