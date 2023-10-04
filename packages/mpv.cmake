@@ -33,7 +33,6 @@ ExternalProject_Add(mpv
         -Dc_link_args=-Wl,--gc-sections
         -Dcpp_link_args=-Wl,--gc-sections
         -Db_lto=true
-        ${mpv_lto_mode}
         -Db_ndebug=true
         -Dlibmpv=true
         -Dpdf-build=enabled
