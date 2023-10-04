@@ -85,7 +85,6 @@ ExternalProject_Add(ffmpeg
         --disable-encoder=libspeex
         --enable-lto
         --extra-cflags='-Wno-error=int-conversion -ffunction-sections -fdata-sections'
-        --extra-ldflags='-Wl,--gc-sections'
         "--extra-libs='${ffmpeg_extra_libs}'" # -lstdc++ / -lc++ needs by libjxl and shaderc
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
