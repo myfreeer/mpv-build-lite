@@ -236,6 +236,7 @@ jobs:
           mkdir -p release
           mv release_i686/* release_x86_64/* release_x86_64_v3/* release
           du -ah release/*
+          echo "short_date=$(date "+%Y%m%d")" >> $GITHUB_ENV
 
       - name: Release
         uses: softprops/action-gh-release@v1
