@@ -76,6 +76,8 @@ ExternalProject_Add(ffmpeg
         --enable-nvenc
         --enable-amf
         --disable-doc
+        --disable-ffplay
+        --disable-ffprobe
         --disable-vaapi
         --disable-vdpau
         --disable-videotoolbox
