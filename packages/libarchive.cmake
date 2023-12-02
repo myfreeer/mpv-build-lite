@@ -6,7 +6,6 @@ ExternalProject_Add(libarchive
         xz
         zlib
         zstd
-        openssl
     GIT_REPOSITORY https://github.com/libarchive/libarchive.git
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_CLONE_FLAGS "--filter=tree:0"
