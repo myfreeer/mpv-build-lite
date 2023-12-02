@@ -36,7 +36,7 @@ ExternalProject_Add(mpv-release
         spirv-cross
     URL ${LINK}
     SOURCE_DIR ${SOURCE_LOCATION}
-    CONFIGURE_COMMAND ${EXEC} meson <BINARY_DIR> <SOURCE_DIR>
+    CONFIGURE_COMMAND ${EXEC} CONF=1 meson <BINARY_DIR> <SOURCE_DIR>
         --prefix=${MINGW_INSTALL_PREFIX}
         --libdir=${MINGW_INSTALL_PREFIX}/lib
         --cross-file=${MESON_CROSS}

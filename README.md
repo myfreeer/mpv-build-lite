@@ -197,7 +197,7 @@ to update flags which will pass on gcc, g++ and etc.
     - vulkan
     - spirv-cross
     - fribidi
-    - nettle
+    - ~~nettle~~
     - curl
     - libxml2
     - amf-headers
@@ -223,21 +223,24 @@ to update flags which will pass on gcc, g++ and etc.
     - rav1e
     - libaribcaption
     - zlib (zlib-ng)
+    - zstd
+    - expat
+    - openssl
+    - mesa
+    - libsdl2
+    - speex
+    - vorbis
+    - ogg
+    - bzip2
 
 - Zip
-    - expat (2.5.0)
-    - bzip (1.0.8)
     - xvidcore (1.3.7)
-    - vorbis (1.3.7)
-    - speex (1.2.1)
-    - ogg (1.3.5)
     - lzo (2.10)
     - libopenmpt (0.7.3)
     - libiconv (1.17)
-    - gmp (6.3.0)
-    - vapoursynth (R63)
-    - libsdl2 (2.28.4)
-    - mbedtls (3.5.0)
+    - ~~gmp (6.3.0)~~
+    - vapoursynth (R65/R63)
+    - ~~mbedtls (3.5.0)~~
     - ~~libressl (3.1.5)~~
 
 
@@ -263,6 +266,16 @@ Place the file on specified location to limit ram & cpu usage to avoid getting s
     memory=4GB
     swap=0
     pageReporting=false
+
+### VA-API Driver
+
+To use VA-API Win32:
+
+    ninja mesa
+
+`vaon12_drv_video.dll` will be generated in `install/$TARGET_ARCH/bin`
+
+this is a layered driver running on top of Direct3D 12 API. Deployment instructions have been [documented by Microsoft](https://devblogs.microsoft.com/directx/video-acceleration-api-va-api-now-available-on-windows/#how-do-i-get-it).
 
 ## Acknowledgements
 

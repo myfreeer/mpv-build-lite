@@ -11,7 +11,7 @@ ExternalProject_Add(libvpx
     GIT_REMOTE_NAME origin
     GIT_TAG main
     UPDATE_COMMAND ""
-    CONFIGURE_COMMAND ${EXEC} CROSS=${TARGET_ARCH}- <SOURCE_DIR>/configure
+    CONFIGURE_COMMAND ${EXEC} CONF=1 CROSS=${TARGET_ARCH}- <SOURCE_DIR>/configure
         --extra-cflags='-fno-asynchronous-unwind-tables'
         --target=${libvpx_target}
         --prefix=${MINGW_INSTALL_PREFIX}
@@ -22,10 +22,10 @@ ExternalProject_Add(libvpx
         --disable-decode-perf-tests
         --disable-encode-perf-tests
         --as=yasm
+        --enable-debug
         --enable-vp9-highbitdepth
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
-            COMMAND ${EXEC} ${TARGET_ARCH}-ranlib ${MINGW_INSTALL_PREFIX}/lib/libvpx.a
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
 

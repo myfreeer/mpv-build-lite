@@ -2,12 +2,13 @@ ExternalProject_Add(freetype2
     DEPENDS
         libpng
         zlib
-    GIT_REPOSITORY https://gitlab.com/shinchiro/freetype2.git
+        brotli
+    GIT_REPOSITORY https://github.com/freetype/freetype.git
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_CLONE_FLAGS "--filter=tree:0"
     GIT_SUBMODULES ""
     UPDATE_COMMAND ""
-    CONFIGURE_COMMAND ${EXEC} meson <BINARY_DIR> <SOURCE_DIR>
+    CONFIGURE_COMMAND ${EXEC} CONF=1 meson <BINARY_DIR> <SOURCE_DIR>
         --prefix=${MINGW_INSTALL_PREFIX}
         --libdir=${MINGW_INSTALL_PREFIX}/lib
         --cross-file=${MESON_CROSS}
@@ -15,7 +16,7 @@ ExternalProject_Add(freetype2
         --default-library=static
         -Dharfbuzz=disabled
         -Dtests=disabled
-        -Dbrotli=disabled
+        -Dbrotli=enabled
         -Dzlib=enabled
         -Dpng=enabled
     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
