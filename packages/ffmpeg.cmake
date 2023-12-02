@@ -4,6 +4,7 @@ ExternalProject_Add(ffmpeg
         avisynth-headers
         nvcodec-headers
         bzip2
+        gmp
         lame
         libass
         libbluray
