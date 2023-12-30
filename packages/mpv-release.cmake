@@ -40,13 +40,13 @@ ExternalProject_Add(mpv-release
         --prefix=${MINGW_INSTALL_PREFIX}
         --libdir=${MINGW_INSTALL_PREFIX}/lib
         --cross-file=${MESON_CROSS}
-        --buildtype=release
         --default-library=shared
         --prefer-static
-        -Dc_link_args=-Wl,--gc-sections
-        -Dcpp_link_args=-Wl,--gc-sections
-        -Db_lto=true
+        -Ddebug=true
         -Db_ndebug=true
+        -Doptimization=3
+        -Db_lto=true
+        ${mpv_lto_mode}
         -Dlibmpv=true
         -Dpdf-build=enabled
         -Dlua=enabled
@@ -63,7 +63,7 @@ ExternalProject_Add(mpv-release
         -Dvulkan=enabled
         -Dlibplacebo=enabled
         -Degl-angle=enabled
-    BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
+    BUILD_COMMAND ${EXEC} LTO_JOB=1 ninja -C <BINARY_DIR>
     INSTALL_COMMAND ""
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
@@ -78,10 +78,9 @@ ExternalProject_Add_Step(mpv-release copy-versionfile
 
 ExternalProject_Add_Step(mpv-release strip-binary
     DEPENDEES build
-    COMMAND ${EXEC} ${TARGET_ARCH}-objcopy --only-keep-debug <BINARY_DIR>/mpv.exe <BINARY_DIR>/mpv.debug
+    ${mpv_add_debuglink}
     COMMAND ${EXEC} ${TARGET_ARCH}-strip -s <BINARY_DIR>/mpv.exe
-    COMMAND ${EXEC} ${TARGET_ARCH}-objcopy --add-gnu-debuglink=<BINARY_DIR>/mpv.debug <BINARY_DIR>/mpv.exe
-    COMMAND ${EXEC} ${TARGET_ARCH}-strip -s <BINARY_DIR>/generated/mpv.com
+    COMMAND ${EXEC} ${TARGET_ARCH}-strip -s <BINARY_DIR>/player/mpv.com
     COMMAND ${EXEC} ${TARGET_ARCH}-strip -s <BINARY_DIR>/libmpv-2.dll
     COMMENT "Stripping mpv binaries"
 )
@@ -89,7 +88,7 @@ ExternalProject_Add_Step(mpv-release strip-binary
 ExternalProject_Add_Step(mpv-release copy-binary
     DEPENDEES strip-binary
     COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/mpv.exe                           ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/mpv.exe
-    COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/generated/mpv.com                 ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/mpv.com
+    COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/player/mpv.com                    ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/mpv.com
     COMMAND ${CMAKE_COMMAND} -E copy <BINARY_DIR>/mpv.pdf                           ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/doc/manual.pdf
     COMMENT "Copying mpv binaries and manual"
 )

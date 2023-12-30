@@ -11,6 +11,7 @@ ExternalProject_Add(rav1e
         CARGO_PROFILE_RELEASE_DEBUG=false
         CARGO_PROFILE_RELEASE_INCREMENTAL=false
         CARGO_PROFILE_RELEASE_LTO=off
+        ${cargo_lto_rustflags}
         cargo cinstall
         --manifest-path <SOURCE_DIR>/Cargo.toml
         --prefix ${MINGW_INSTALL_PREFIX}
