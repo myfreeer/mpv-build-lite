@@ -64,8 +64,9 @@ jobs:
         with:
           path: |
             clang_root
-          key: ${{ secrets.CACHE_VERSION }}-clang_root-os-${{ github.run_id }}
+          key: ${{ secrets.CACHE_VERSION }}-clang_root-${{ github.run_id }}
           restore-keys: |
+            ${{ secrets.CACHE_VERSION }}-os-clang_root
             ${{ secrets.CACHE_VERSION }}-clang_root
 
       - name: Loading repository cache
@@ -84,6 +85,7 @@ jobs:
           key: ${{ secrets.CACHE_VERSION }}-clang-os-${{ matrix.bit }}_toolchain-${{ github.run_id }}
           restore-keys: |
             ${{ secrets.CACHE_VERSION }}-clang-os-${{ matrix.bit }}_toolchain
+            ${{ secrets.CACHE_VERSION }}-clang-${{ matrix.bit }}_toolchain
 
       - name: Running custom command
         if: ${{ github.event.inputs.command != '' }}
@@ -167,7 +169,7 @@ jobs:
         with:
           path: |
             clang_root
-          key: ${{ secrets.CACHE_VERSION }}-clang_root-os-${{ github.run_id }}
+          key: ${{ secrets.CACHE_VERSION }}-os-clang_root-${{ github.run_id }}
 
       - name: Saving repository cache
         uses: actions/cache/save@main
