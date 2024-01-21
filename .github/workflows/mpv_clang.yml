@@ -84,6 +84,7 @@ jobs:
           key: ${{ secrets.CACHE_VERSION }}-clang-ld-os-${{ matrix.bit }}_toolchain-${{ github.run_id }}
           restore-keys: |
             ${{ secrets.CACHE_VERSION }}-clang-ld-os-${{ matrix.bit }}_toolchain
+            ${{ secrets.CACHE_VERSION }}-clang-${{ matrix.bit }}_toolchain
 
       - name: Running custom command
         if: ${{ github.event.inputs.command != '' }}
