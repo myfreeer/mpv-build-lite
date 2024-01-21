@@ -64,7 +64,7 @@ jobs:
         with:
           path: |
             clang_root
-          key: ${{ secrets.CACHE_VERSION }}-clang_root-${{ github.run_id }}
+          key: ${{ secrets.CACHE_VERSION }}-clang_root-ld-os-${{ github.run_id }}
           restore-keys: |
             ${{ secrets.CACHE_VERSION }}-clang_root
 
@@ -72,18 +72,18 @@ jobs:
         uses: actions/cache/restore@main
         with:
           path: src_packages
-          key: ${{ secrets.CACHE_VERSION }}-repository-${{ github.run_id }}
+          key: ${{ secrets.CACHE_VERSION }}-ld-os-repository-${{ github.run_id }}
           restore-keys: |
-            ${{ secrets.CACHE_VERSION }}-repository
+            ${{ secrets.CACHE_VERSION }}-ld-os-repository
 
       - name: Loading ${{ matrix.bit }} toolchain cache
         uses: actions/cache/restore@main
         with:
           path: |
             build_${{ matrix.bit }}
-          key: ${{ secrets.CACHE_VERSION }}-clang-${{ matrix.bit }}_toolchain-${{ github.run_id }}
+          key: ${{ secrets.CACHE_VERSION }}-clang-ld-os-${{ matrix.bit }}_toolchain-${{ github.run_id }}
           restore-keys: |
-            ${{ secrets.CACHE_VERSION }}-clang-${{ matrix.bit }}_toolchain
+            ${{ secrets.CACHE_VERSION }}-clang-ld-os-${{ matrix.bit }}_toolchain
 
       - name: Running custom command
         if: ${{ github.event.inputs.command != '' }}
@@ -167,14 +167,14 @@ jobs:
         with:
           path: |
             clang_root
-          key: ${{ secrets.CACHE_VERSION }}-clang_root-${{ github.run_id }}
+          key: ${{ secrets.CACHE_VERSION }}-clang_root-ld-os-${{ github.run_id }}
 
       - name: Saving repository cache
         uses: actions/cache/save@main
         if: ${{ always() && matrix.bit == 'x86_64' }}
         with:
           path: src_packages
-          key: ${{ secrets.CACHE_VERSION }}-repository-${{ github.run_id }}
+          key: ${{ secrets.CACHE_VERSION }}-ld-os-repository-${{ github.run_id }}
 
       - name: Saving ${{ matrix.bit }} toolchain cache
         uses: actions/cache/save@main
@@ -182,7 +182,7 @@ jobs:
         with:
           path: |
             build_${{ matrix.bit }}
-          key: ${{ secrets.CACHE_VERSION }}-clang-${{ matrix.bit }}_toolchain-${{ github.run_id }}
+          key: ${{ secrets.CACHE_VERSION }}-clang-ld-os-${{ matrix.bit }}_toolchain-${{ github.run_id }}
 
       - name: Saving release_${{ matrix.bit }} cache
         uses: actions/cache/save@main
