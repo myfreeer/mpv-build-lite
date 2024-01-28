@@ -178,13 +178,13 @@ jobs:
           path: src_packages
           key: ${{ secrets.CACHE_VERSION }}-os-repository-${{ github.run_id }}
 
-      - name: Saving ${{ matrix.bit }} toolchain cache
-        uses: actions/cache/save@main
-        if: always()
-        with:
-          path: |
-            build_${{ matrix.bit }}
-          key: ${{ secrets.CACHE_VERSION }}-clang-os-${{ matrix.bit }}_toolchain-${{ github.run_id }}
+      # - name: Saving ${{ matrix.bit }} toolchain cache
+      #   uses: actions/cache/save@main
+      #   if: always()
+      #   with:
+      #     path: |
+      #       build_${{ matrix.bit }}
+      #     key: ${{ secrets.CACHE_VERSION }}-clang-os-${{ matrix.bit }}_toolchain-${{ github.run_id }}
 
       - name: Saving release_${{ matrix.bit }} cache
         uses: actions/cache/save@main
