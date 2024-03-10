@@ -8,6 +8,9 @@ ExternalProject_Add(ffmpeg
         lame
         libass
         libbluray
+        libdvdnav
+        libdvdread
+        libmodplug
         libpng
         libsoxr
         libbs2b
@@ -46,6 +49,8 @@ ExternalProject_Add(ffmpeg
         --enable-gmp
         --enable-libass
         --enable-libbluray
+        --enable-libdvdnav
+        --enable-libdvdread
         --enable-libfreetype
         --enable-libfribidi
         --enable-libfontconfig
