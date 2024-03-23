@@ -161,7 +161,7 @@ to update flags which will pass on gcc, g++ and etc.
     - x264
     - x265 (multilib)
     - uchardet
-    - rubberband
+    - rubberband (with libsamplerate)
     - opus
     - openal-soft
     - mpv
@@ -233,7 +233,7 @@ to update flags which will pass on gcc, g++ and etc.
 - Zip
     - xvidcore (1.3.7)
     - lzo (2.10)
-    - libopenmpt (0.7.3)
+    - libopenmpt (0.7.4)
     - libiconv (1.17)
     - ~~gmp (6.3.0)~~
     - vapoursynth (R65/R63)
