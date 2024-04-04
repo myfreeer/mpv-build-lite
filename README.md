@@ -21,9 +21,11 @@ Alternatively, you can download the builds from [here](https://sourceforge.net/p
 
 These packages need to be installed first before compiling mpv:
 
-    pacman -S git gyp mercurial subversion ninja cmake meson ragel yasm nasm asciidoc enca gperf unzip p7zip gcc-multilib clang lld libc++ libc++abi python-pip curl lib32-glib2 mimalloc ccache
-
+    pacman -S git gyp mercurial subversion ninja cmake meson ragel yasm nasm asciidoc enca gperf unzip p7zip gcc-multilib clang lld libc++ libc++abi python-pip curl lib32-gcc-libs lib32-glib2 mimalloc ccache
+    
     pip3 install rst2pdf mako jsonschema
+
+    pacman -S llvm # needed for building LLVM PGO
 
 ### Ubuntu Linux / WSL (Windows 10)
 
@@ -223,7 +225,6 @@ to update flags which will pass on gcc, g++ and etc.
     - zstd
     - expat
     - openssl
-    - mesa
     - libsdl2
     - speex
     - vorbis
@@ -233,7 +234,7 @@ to update flags which will pass on gcc, g++ and etc.
 - Zip
     - xvidcore (1.3.7)
     - lzo (2.10)
-    - libopenmpt (0.7.4)
+    - libopenmpt (0.7.6)
     - libiconv (1.17)
     - ~~gmp (6.3.0)~~
     - vapoursynth (R65/R63)
@@ -263,16 +264,6 @@ Place the file on specified location to limit ram & cpu usage to avoid getting s
     memory=4GB
     swap=0
     pageReporting=false
-
-### VA-API Driver
-
-To use VA-API Win32:
-
-    ninja mesa
-
-`vaon12_drv_video.dll` will be generated in `install/$TARGET_ARCH/bin`
-
-this is a layered driver running on top of Direct3D 12 API. Deployment instructions have been [documented by Microsoft](https://devblogs.microsoft.com/directx/video-acceleration-api-va-api-now-available-on-windows/#how-do-i-get-it).
 
 ## Acknowledgements
 
