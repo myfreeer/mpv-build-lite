@@ -46,6 +46,8 @@ jobs:
           elif [[ $BIT == "x86_64_v3" ]]; then
             echo "arch=x86_64" >> $GITHUB_ENV
             echo "x86_64_level=-v3" >> $GITHUB_ENV
+          elif [[ $BIT == "aarch64" ]]; then
+            echo "arch=aarch64" >> $GITHUB_ENV
           fi
 
       - name: Setup git config
@@ -199,6 +201,7 @@ jobs:
       release_i686_key: ${{ secrets.CACHE_VERSION }}-release_i686-${{ github.run_id }}
       release_x86_64_key: ${{ secrets.CACHE_VERSION }}-release_x86_64-${{ github.run_id }}
       release_x86_64_v3_key: ${{ secrets.CACHE_VERSION }}-release_x86_64_v3-${{ github.run_id }}
+      release_aarch64_key: ${{ secrets.CACHE_VERSION }}-release_aarch64-${{ github.run_id }}
     container:
       image: docker://alpine:latest
 
@@ -233,10 +236,16 @@ jobs:
           path: release_x86_64_v3
           key: ${{ env.release_x86_64_v3_key }}
 
+      - name: Loading release_aarch64 cache
+        uses: actions/cache/restore@main
+        with:
+          path: release_aarch64
+          key: ${{ env.release_aarch64_key }}
+
       - name: Moving archives
         run: |
           mkdir -p release
-          mv release_i686/* release_x86_64/* release_x86_64_v3/* release
+          mv release_i686/* release_x86_64/* release_x86_64_v3/* release_aarch64/* release || true
           du -ah release/*
           echo "short_date=$(date "+%Y%m%d")" >> $GITHUB_ENV
 
