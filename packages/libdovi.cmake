@@ -4,7 +4,7 @@ ExternalProject_Add(libdovi
     GIT_CLONE_FLAGS "--sparse --filter=tree:0"
     GIT_CLONE_POST_COMMAND "sparse-checkout set --no-cone dolby_vision"
     GIT_REMOTE_NAME origin
-    GIT_TAG main
+    GIT_TAG 2.2.0
     UPDATE_COMMAND ""
     PATCH_COMMAND ""
     CONFIGURE_COMMAND ""
