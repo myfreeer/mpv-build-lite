@@ -180,7 +180,7 @@ jobs:
           key: ${{ secrets.CACHE_VERSION }}-gcc-release_${{ matrix.bit }}-${{ github.run_id }}
 
       - name: Delete previous cache
-        if: always()
+        if: false
         env:
           GH_TOKEN: ${{ github.token }}
           CURL_RETRIES: "--connect-timeout 60 --retry 999 --retry-delay 5 --retry-all-errors"
