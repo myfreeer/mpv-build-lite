@@ -45,7 +45,6 @@ ExternalProject_Add(ffmpeg
         --enable-runtime-cpudetect
         --enable-gpl
         --enable-version3
-        --enable-postproc
         --enable-avisynth
         --enable-gmp
         --enable-libass
