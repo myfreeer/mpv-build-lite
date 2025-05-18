@@ -291,3 +291,4 @@ This project was originally created and maintained [lachs0r](https://github.com/
 * uavs3d
 * davs2
 * libopenmpt
+* lame
