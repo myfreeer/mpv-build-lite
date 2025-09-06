@@ -158,11 +158,6 @@ jobs:
           rm -rf build_$BIT/mpv*
           rm -rf release_$BIT/mpv-debug*.7z
 
-      - name: Cleaning rust toolchain directory
-        if: ${{ false }}
-        run: |
-          ninja -C build_$BIT cargo-clean
-
       - name: Saving clang sysroot cache
         uses: actions/cache/save@main
         if: ${{ always() && matrix.bit == 'x86_64' }}
