@@ -130,8 +130,8 @@ jobs:
         run: |
           mkdir -p build_${BIT}_logs
           cp -fr $(find build_$BIT -type f -iname "*-*.log" -or -wholename "*/ffbuild/config.log") build_${BIT}_logs || true
-          7z a -m0=lzma2 -mx=9 -ms=on logs.7z build*logs
-          7z a -m0=lzma2 -mx=9 -ms=on -r logs2.7z *.log *.cmake *.ninja *.txt configure *.m4 *.sh
+          7z a -m0=lzma2 -mx=9 -ms=on logs.7z build*logs || true
+          7z a -m0=lzma2 -mx=9 -ms=on -r logs2.7z *.log *.cmake *.ninja *.txt configure *.m4 *.sh || true
 
       - name: Uploading logs
         uses: actions/upload-artifact@master
