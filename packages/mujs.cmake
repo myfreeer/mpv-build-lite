@@ -11,7 +11,7 @@ ExternalProject_Add(mujs
     GIT_REPOSITORY https://codeberg.org/ccxvii/mujs.git
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_CLONE_FLAGS "--filter=tree:0"
-    PATCH_COMMAND ${EXEC} git am --3way ${CMAKE_CURRENT_SOURCE_DIR}/mujs-*.patch
+    PATCH_COMMAND ${EXEC} git am --3way ${CMAKE_CURRENT_SOURCE_DIR}/mujs-*.patch && ${EXEC} sed -i "s|https://www.unicode.org/Public/16.0.0/ucd/|https://github.com/myfreeer/blob/releases/download/mujs-unicode-16/|g" Makefile
     UPDATE_COMMAND ""
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ${MAKE} -C <SOURCE_DIR> ${flag}
