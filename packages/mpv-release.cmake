@@ -34,6 +34,9 @@ ExternalProject_Add(mpv-release
         shaderc
         libplacebo
         spirv-cross
+        vapoursynth
+        libsdl2
+        subrandr
     URL ${LINK}
     SOURCE_DIR ${SOURCE_LOCATION}
     CONFIGURE_COMMAND ${EXEC} CONF=1 meson setup <BINARY_DIR> <SOURCE_DIR>
