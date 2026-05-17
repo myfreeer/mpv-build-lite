@@ -3,7 +3,7 @@ if(${TARGET_CPU} MATCHES "i686")
 endif()
 
 ExternalProject_Add(davs2
-    GIT_REPOSITORY https://github.com/pkuvcl/davs2.git
+    GIT_REPOSITORY https://github.com/saindriches/davs2.git
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_CLONE_FLAGS "--filter=tree:0"
     UPDATE_COMMAND ""
@@ -12,6 +12,7 @@ ExternalProject_Add(davs2
         --cross-prefix=${TARGET_CPU}-w64-mingw32-
         --prefix=${MINGW_INSTALL_PREFIX}
         --disable-cli
+        --bit-depth=10
         ${disable_asm}
     BUILD_COMMAND ${MAKE} -C <SOURCE_DIR>/build/linux
     INSTALL_COMMAND ${MAKE} -C <SOURCE_DIR>/build/linux install
