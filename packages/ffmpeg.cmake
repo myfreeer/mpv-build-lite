@@ -2,7 +2,7 @@ ExternalProject_Add(ffmpeg
     DEPENDS
         amf-headers
         avisynth-headers
-        ${nvcodec_headers}
+        nvcodec-headers
         bzip2
         gmp
         libass
@@ -22,7 +22,6 @@ ExternalProject_Add(ffmpeg
         x264
         libxml2
         libvpl
-        shaderc
         libplacebo
         libzvbi
         libaribcaption
@@ -70,10 +69,12 @@ ExternalProject_Add(ffmpeg
         --disable-libsrt
         --enable-libvpl
         --enable-libplacebo
-        --enable-libshaderc
         --enable-libzvbi
         --enable-libaribcaption
-        ${ffmpeg_cuda}
+        --enable-cuda-llvm
+        --enable-cuvid
+        --enable-nvdec
+        --enable-nvenc
         --enable-amf
         --disable-doc
         --disable-ffplay

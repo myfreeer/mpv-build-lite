@@ -1,7 +1,6 @@
 ExternalProject_Add(libarchive
     DEPENDS
         bzip2
-        expat
         lzo
         xz
         zlib
